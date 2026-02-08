@@ -7,7 +7,7 @@ from enum import Enum
 from typing import Any
 from uuid import uuid4
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ComponentType(str, Enum):
@@ -64,6 +64,8 @@ class RiskAssessment(BaseModel):
 
 class AIComponent(BaseModel):
     """Detected AI component with metadata and risk assessment."""
+
+    model_config = ConfigDict(protected_namespaces=())
 
     id: str = Field(default_factory=lambda: str(uuid4()))
     name: str

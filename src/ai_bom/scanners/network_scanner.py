@@ -17,7 +17,6 @@ from ai_bom.models import (
     AIComponent,
     ComponentType,
     RiskAssessment,
-    Severity,
     SourceLocation,
     UsageType,
 )
@@ -288,15 +287,10 @@ class NetworkScanner(BaseScanner):
         # Check if value looks like a hardcoded key
         has_hardcoded_key = self._is_hardcoded_value(value)
 
-        # Create component
+        # Create component — risk scoring is done centrally by score_component()
         flags = []
-        risk_factors = []
-        risk_score = 10
-
         if has_hardcoded_key:
             flags.append("hardcoded_api_key")
-            risk_factors.append("Hardcoded API key in configuration file")
-            risk_score = 30
 
         component = AIComponent(
             name=f"{provider} Endpoint",
@@ -308,11 +302,7 @@ class NetworkScanner(BaseScanner):
                 context_snippet=line.strip()[:100],
             ),
             usage_type=UsageType.completion,
-            risk=RiskAssessment(
-                score=risk_score,
-                severity=self._calculate_severity(risk_score),
-                factors=risk_factors,
-            ),
+            risk=RiskAssessment(),
             flags=flags,
             source="network",
             metadata={"env_var": key, "has_value": bool(value)},
@@ -367,11 +357,7 @@ class NetworkScanner(BaseScanner):
                 context_snippet=line.strip()[:100],
             ),
             usage_type=usage_type_enum,
-            risk=RiskAssessment(
-                score=10,
-                severity=Severity.low,
-                factors=["AI endpoint configured in file"],
-            ),
+            risk=RiskAssessment(),
             source="network",
         )
         components.append(component)
@@ -412,11 +398,7 @@ class NetworkScanner(BaseScanner):
                     context_snippet=line.strip()[:100],
                 ),
                 usage_type=UsageType.completion,
-                risk=RiskAssessment(
-                    score=30,
-                    severity=Severity.critical,
-                    factors=["Hardcoded API key detected in file"],
-                ),
+                risk=RiskAssessment(),
                 flags=["hardcoded_api_key"],
                 source="network",
                 metadata={"masked_key": masked_key, "pattern": pattern},
@@ -514,20 +496,3 @@ class NetworkScanner(BaseScanner):
         }
         return mapping.get(usage_type, UsageType.unknown)
 
-    def _calculate_severity(self, risk_score: int) -> Severity:
-        """Calculate severity from risk score.
-
-        Args:
-            risk_score: Risk score (0-100)
-
-        Returns:
-            Severity level
-        """
-        if risk_score >= 25:
-            return Severity.critical
-        elif risk_score >= 15:
-            return Severity.high
-        elif risk_score >= 10:
-            return Severity.medium
-        else:
-            return Severity.low

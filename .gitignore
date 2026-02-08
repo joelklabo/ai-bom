@@ -29,6 +29,7 @@ htmlcov/
 
 # Node
 node_modules/
+demo-video/node_modules/
 
 # OS
 .DS_Store

@@ -76,7 +76,7 @@ def _build_result(
     if component.flags:
         result["properties"]["flags"] = component.flags
 
-    # Build location
+    # Build location — GitHub Code Scanning requires at least one location per result
     file_path = component.location.file_path
     if file_path and file_path != "dependency files":
         # Make path relative to target for SARIF
@@ -93,6 +93,15 @@ def _build_result(
                 "startLine": component.location.line_number,
             }
         result["locations"] = [{"physicalLocation": physical_location}]
+    else:
+        # Fallback location for dependency-file components
+        result["locations"] = [
+            {
+                "physicalLocation": {
+                    "artifactLocation": {"uri": ".", "uriBaseId": "%SRCROOT%"},
+                }
+            }
+        ]
 
     return result
 

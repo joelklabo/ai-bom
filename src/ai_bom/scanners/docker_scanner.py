@@ -135,7 +135,6 @@ class DockerScanner(BaseScanner):
                 if (
                     "dockerfile" in filename
                     and filename != "dockerfile"
-                    and filename != "dockerfile"
                 ):
                     components.extend(self._scan_dockerfile(dockerfile))
 

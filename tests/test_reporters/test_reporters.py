@@ -195,9 +195,12 @@ class TestSARIFReporter:
         reporter = SARIFReporter()
         output = reporter.render(result)
         data = json.loads(output)
-        # Result should exist but without locations
+        # Result should have fallback location with uri "."
         sarif_result = data["runs"][0]["results"][0]
-        assert "locations" not in sarif_result
+        assert "locations" in sarif_result
+        loc = sarif_result["locations"][0]["physicalLocation"]
+        assert loc["artifactLocation"]["uri"] == "."
+        assert loc["artifactLocation"]["uriBaseId"] == "%SRCROOT%"
 
     def test_component_without_line_number(self):
         from ai_bom.models import (
