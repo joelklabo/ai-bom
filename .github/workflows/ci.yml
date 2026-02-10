@@ -72,7 +72,7 @@ jobs:
       - name: Check coverage threshold
         if: matrix.python-version == '3.12'
         run: |
-          coverage report --fail-under=75
+          coverage report --fail-under=80
 
   security:
     runs-on: ubuntu-latest
