@@ -32,15 +32,24 @@ dependencies = [
     "pydantic>=2.0.0",
     "pyyaml>=6.0",
     "gitpython>=3.1.0",
+    "requests>=2.28.0",
     "tomli>=2.0.0; python_version<'3.11'",
 ]
 
 [project.optional-dependencies]
+dashboard = [
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.20.0",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
     "ruff>=0.1.0",
 ]
+aws = ["boto3>=1.26.0"]
+gcp = ["google-cloud-aiplatform>=1.38.0"]
+azure = ["azure-ai-ml>=1.11.0", "azure-identity>=1.12.0"]
+cloud-live = ["ai-bom[aws,gcp,azure]"]
 
 [project.scripts]
 ai-bom = "ai_bom.cli:app"
@@ -64,6 +73,11 @@ exclude = [
     "tests",
     "htmlcov",
     ".coverage",
+    "demo-video",
+    "node_modules",
+    "*.mp4",
+    "*.gif",
+    "assets",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -79,3 +93,6 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/ai_bom/dashboard/frontend.py" = ["E501"]

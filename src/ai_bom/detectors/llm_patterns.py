@@ -199,12 +199,19 @@ LLM_PATTERNS: list[LLMPattern] = [
         import_patterns=[
             r"from\s+crewai\s+import",
             r"import\s+crewai",
+            r"from\s+crewai\.flow",
         ],
         usage_patterns=[
             r"Agent\(",
             r"Task\(",
             r"Crew\(",
             r"crew\.kickoff\(",
+            # CrewAI flow decorators
+            r"@crew\b",
+            r"@agent\b",
+            r"@task\b",
+            r"@flow\b",
+            r"@tool\b",
         ],
         model_extraction=None,
         dep_names=["crewai"],

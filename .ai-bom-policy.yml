@@ -1,0 +1,18 @@
+# AI-BOM Policy Configuration
+# Use with: ai-bom scan . --policy .ai-bom-policy.yml
+
+# Maximum allowed components by severity (null = unlimited)
+max_critical: 0
+max_high: 5
+
+# Maximum allowed risk score for any single component (0-100)
+max_risk_score: 75
+
+# Providers that are not allowed (case-insensitive)
+block_providers: []
+  # - "Ollama"  # Uncomment to block local LLM usage
+
+# Risk flags that cause automatic failure
+block_flags:
+  - hardcoded_api_key
+  - hardcoded_credentials

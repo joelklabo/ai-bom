@@ -5,6 +5,7 @@ from ai_bom.reporters.cyclonedx import CycloneDXReporter
 from ai_bom.reporters.html_reporter import HTMLReporter
 from ai_bom.reporters.markdown import MarkdownReporter
 from ai_bom.reporters.sarif import SARIFReporter
+from ai_bom.reporters.spdx3 import SPDX3Reporter
 
 REPORTERS = {
     "table": CLIReporter,
@@ -13,6 +14,7 @@ REPORTERS = {
     "html": HTMLReporter,
     "markdown": MarkdownReporter,
     "sarif": SARIFReporter,
+    "spdx3": SPDX3Reporter,
 }
 
 

@@ -91,6 +91,13 @@ KNOWN_AI_PACKAGES: Dict[str, Tuple[str, str]] = {
     "a2a": ("A2A", "agent"),
     "a2a-sdk": ("A2A", "agent"),
 
+    # Google Agent Development Kit
+    "google.adk": ("Google", "agent"),
+    "google-adk": ("Google", "agent"),
+
+    # DeepSeek
+    "deepseek": ("DeepSeek", "completion"),
+
     # AWS Bedrock
     "boto3": ("AWS", "completion"),  # Special: requires additional bedrock service check
 
@@ -169,6 +176,9 @@ KNOWN_AI_ENDPOINTS: List[Tuple[str, str, str]] = [
     # Ollama (local)
     (r"localhost:11434", "Ollama", "completion"),
     (r"127\.0\.0\.1:11434", "Ollama", "completion"),
+
+    # Agent-to-Agent (A2A)
+    (r"a2a\.googleapis\.com", "Google A2A", "agent"),
 ]
 
 # =============================================================================
@@ -220,6 +230,26 @@ KNOWN_MODEL_PATTERNS: List[Tuple[str, str]] = [
 
     # Microsoft Phi
     (r"phi-\d+(-\w+)*", "Microsoft"),
+
+    # OpenAI latest
+    (r"gpt-4\.5(-\w+)*", "OpenAI"),
+    (r"o[13](-\w+)*", "OpenAI"),
+
+    # Anthropic Claude 4.x
+    (r"claude-4(-\w+)*", "Anthropic"),
+    (r"claude-4\.5(-\w+)*", "Anthropic"),
+    (r"claude-sonnet-4(-\w+)*", "Anthropic"),
+    (r"claude-opus-4(-\w+)*", "Anthropic"),
+    (r"claude-haiku-4(-\w+)*", "Anthropic"),
+
+    # Google Gemini 2.x
+    (r"gemini-2\.\d+(-\w+)*", "Google"),
+
+    # Meta Llama 4
+    (r"llama-4(-\w+)*", "Meta"),
+
+    # DeepSeek
+    (r"deepseek-\w+(-\w+)*", "DeepSeek"),
 ]
 
 # =============================================================================
@@ -372,6 +402,32 @@ EXCLUDED_DIRS: FrozenSet[str] = frozenset({
 })
 
 # =============================================================================
+# CREWAI FLOW PATTERNS
+# =============================================================================
+# Maps CrewAI decorator names to their semantic type
+# Used to detect CrewAI flow-based agent definitions
+
+CREWAI_FLOW_PATTERNS: Dict[str, str] = {
+    "@crew": "crew_definition",
+    "@agent": "agent_definition",
+    "@task": "task_definition",
+    "@flow": "flow_definition",
+    "@tool": "tool_definition",
+}
+
+# =============================================================================
+# MCP CONFIG FILES
+# =============================================================================
+# Known filenames for MCP server configuration
+
+MCP_CONFIG_FILES: Set[str] = {
+    "mcp.json",
+    ".mcp.json",
+    "mcp-config.json",
+    "claude_desktop_config.json",
+}
+
+# =============================================================================
 # SCANNABLE EXTENSIONS
 # =============================================================================
 # Maps scanner type to file extensions that should be scanned
@@ -474,8 +530,15 @@ DEPRECATED_MODELS: Set[str] = {
     "text-curie-001",
     "text-embedding-ada-002",  # Use text-embedding-3-small/large instead
 
+    "gpt-4-0314",
+    "gpt-4-0613",
+    "gpt-4-32k-0314",
+    "gpt-4-32k-0613",
+
     # Anthropic deprecated models
     "claude-instant-1",
     "claude-instant-1.2",
     "claude-2.0",
+    "claude-2.1",
+    "claude-3-haiku-20240307",
 }

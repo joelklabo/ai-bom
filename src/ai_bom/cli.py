@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import shutil
+import sys
 import tempfile
 import time
 from pathlib import Path
@@ -17,6 +18,7 @@ from ai_bom import __version__
 from ai_bom.models import ScanResult
 from ai_bom.reporters import get_reporter
 from ai_bom.scanners import get_all_scanners
+from ai_bom.scanners.ast_scanner import ASTScanner
 from ai_bom.utils.risk_scorer import score_component
 
 app = typer.Typer(
@@ -103,11 +105,9 @@ def _resolve_target(
             raise typer.Exit(1)
         scan_path = n8n_path
     elif n8n_url:
-        # For live n8n scanning, we'll need to implement API access
-        # For now, just indicate it's not supported yet
-        console.print("[yellow]Live n8n scanning via API is not yet implemented.[/yellow]")
-        console.print("[yellow]Use --n8n-local to scan your local n8n directory.[/yellow]")
-        raise typer.Exit(1)
+        # Live n8n scanning via API — handled separately in scan()
+        # Return a dummy path; the caller uses the n8n_url flag to branch.
+        scan_path = Path(".")  # not used for actual file scanning
     else:
         # Resolve as local path
         scan_path = Path(target).resolve()
@@ -153,21 +153,57 @@ def _filter_by_severity(
     result.build_summary()
 
 
+def _save_to_dashboard(result: ScanResult, scan_duration: float, quiet: bool = False) -> None:
+    """Save scan result to the dashboard SQLite database.
+
+    Uses lazy imports so the dashboard deps are not required for normal CLI usage.
+    """
+    import json
+    from uuid import uuid4
+
+    try:
+        from ai_bom.dashboard.db import init_db, save_scan
+    except ImportError:
+        if not quiet:
+            console.print(
+                "[yellow]Dashboard dependencies not installed. "
+                "Install with: pip install ai-bom[dashboard][/yellow]"
+            )
+        return
+
+    try:
+        init_db()
+        scan_id = str(uuid4())
+        summary_dict = result.summary.model_dump()
+        components_list = [c.model_dump(mode="json") for c in result.components]
+        save_scan(
+            scan_id=scan_id,
+            timestamp=result.scan_timestamp,
+            target_path=result.target_path,
+            summary_json=json.dumps(summary_dict),
+            components_json=json.dumps(components_list),
+            scan_duration=scan_duration,
+            ai_bom_version=result.ai_bom_version,
+        )
+        if not quiet:
+            console.print(f"[green]Scan saved to dashboard (id: {scan_id[:8]}...)[/green]")
+    except Exception as e:
+        if not quiet:
+            console.print(f"[yellow]Failed to save to dashboard: {e}[/yellow]")
+
+
 @app.command()
 def scan(
     target: str = typer.Argument(".", help="Path to scan (file, directory, or git URL)"),
     format: str = typer.Option(
         "table", "--format", "-f",
-        help="Output format: table, cyclonedx, json, html, markdown, sarif",
+        help="Output format: table, cyclonedx, json, html, markdown, sarif, spdx3",
     ),
     output: Optional[str] = typer.Option(
         None, "--output", "-o", help="Output file path",
     ),
     deep: bool = typer.Option(
-        False, "--deep", help="Enable deep scanning (reserved for future AST mode)",
-    ),
-    include_tests: bool = typer.Option(
-        False, "--include-tests", help="Include test directories in scan",
+        False, "--deep", help="Enable deep AST-based Python analysis",
     ),
     severity: Optional[str] = typer.Option(
         None, "--severity", "-s",
@@ -181,19 +217,33 @@ def scan(
     ),
     n8n_api_key: Optional[str] = typer.Option(None, "--n8n-api-key", help="n8n API key"),
     n8n_local: bool = typer.Option(False, "--n8n-local", help="Scan local ~/.n8n/ directory"),
+    quiet: bool = typer.Option(
+        False, "--quiet", "-q", help="Suppress banner and progress (for CI)",
+    ),
+    save_dashboard: bool = typer.Option(
+        False, "--save-dashboard", help="Save scan results to the dashboard database",
+    ),
+    fail_on: Optional[str] = typer.Option(
+        None, "--fail-on",
+        help="Exit code 1 if severity threshold met: critical, high, medium, low",
+    ),
+    policy: Optional[str] = typer.Option(
+        None, "--policy",
+        help="Path to YAML policy file for CI/CD enforcement",
+    ),
 ) -> None:
     """Scan a directory or repository for AI/LLM components."""
     # Disable colors if requested
     if no_color:
         console.no_color = True
 
-    # Print banner for table format
-    if format == "table":
+    # Print banner for table format (unless quiet)
+    if format == "table" and not quiet:
         _print_banner()
 
-    # Show warning for unimplemented features
-    if deep:
-        console.print("[yellow]Deep scanning (AST mode) is not yet implemented.[/yellow]")
+    # Enable AST scanner when --deep is used
+    if deep and not quiet:
+        console.print("[cyan]Deep scanning (AST mode) enabled.[/cyan]")
 
     # Resolve target path
     try:
@@ -206,45 +256,91 @@ def scan(
 
     try:
         # Initialize scan result
-        result = ScanResult(target_path=str(scan_path))
+        result = ScanResult(target_path=n8n_url or str(scan_path))
         start_time = time.time()
 
-        # Get all scanners
-        scanners = get_all_scanners()
+        if n8n_url:
+            # --- Live n8n API scanning ---
+            if not n8n_api_key:
+                console.print("[red]--n8n-api-key is required when using --n8n-url[/red]")
+                raise typer.Exit(1)
 
-        if format == "table":
-            console.print(f"[cyan]Scanning: {scan_path}[/cyan]")
-            console.print()
+            from ai_bom.integrations.n8n_api import (
+                N8nAPIClient,
+                N8nAPIError,
+                N8nAuthError,
+                N8nConnectionError,
+            )
+            from ai_bom.scanners.n8n_scanner import N8nScanner
 
-        # Run scanners with progress indicator
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            console=console,
-            disable=(format != "table"),
-        ) as progress:
-            for scanner in scanners:
-                # Check if scanner supports this path
-                if not scanner.supports(scan_path):
-                    continue
+            if format == "table" and not quiet:
+                console.print(f"[cyan]Scanning n8n instance: {n8n_url}[/cyan]")
+                console.print()
 
-                task = progress.add_task(f"Running {scanner.name} scanner...", total=None)
+            client = N8nAPIClient(n8n_url, n8n_api_key)
+            n8n_scanner = N8nScanner()
 
-                try:
-                    # Run scanner
-                    components = scanner.scan(scan_path)
+            try:
+                components = n8n_scanner.scan_from_api(client)
+            except N8nAuthError:
+                console.print(
+                    "[red]Authentication failed. Check your n8n API key.[/red]"
+                )
+                raise typer.Exit(1)
+            except N8nConnectionError as exc:
+                console.print(f"[red]Cannot connect to n8n: {exc}[/red]")
+                raise typer.Exit(1)
+            except N8nAPIError as exc:
+                console.print(f"[red]n8n API error: {exc}[/red]")
+                raise typer.Exit(1)
 
-                    # Apply risk scoring to each component
-                    for comp in components:
-                        comp.risk = score_component(comp)
+            for comp in components:
+                comp.risk = score_component(comp)
+            result.components.extend(components)
+        else:
+            # --- File-system scanning ---
+            # Get all scanners
+            scanners = get_all_scanners()
 
-                    # Add components to result
-                    result.components.extend(components)
+            # Enable AST scanner if --deep flag is set
+            if deep:
+                for s in scanners:
+                    if isinstance(s, ASTScanner):
+                        s.enabled = True
 
-                except Exception as e:
-                    console.print(f"[red]Error running {scanner.name} scanner: {e}[/red]")
+            if format == "table" and not quiet:
+                console.print(f"[cyan]Scanning: {scan_path}[/cyan]")
+                console.print()
 
-                progress.update(task, completed=True)
+            # Run scanners with progress indicator
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                console=console,
+                disable=(format != "table" or quiet),
+            ) as progress:
+                for scanner in scanners:
+                    # Check if scanner supports this path
+                    if not scanner.supports(scan_path):
+                        continue
+
+                    task = progress.add_task(f"Running {scanner.name} scanner...", total=None)
+
+                    try:
+                        # Run scanner
+                        components = scanner.scan(scan_path)
+
+                        # Apply risk scoring to each component
+                        for comp in components:
+                            comp.risk = score_component(comp)
+
+                        # Add components to result
+                        result.components.extend(components)
+
+                    except Exception as e:
+                        console.print(f"[red]Error running {scanner.name} scanner: {e}[/red]")
+
+                    progress.update(task, completed=True)
 
         # Calculate scan duration
         end_time = time.time()
@@ -255,11 +351,11 @@ def scan(
 
         # Filter by severity if specified
         if severity:
-            _filter_by_severity(result, severity, quiet=(format != "table"))
+            _filter_by_severity(result, severity, quiet=(format != "table" or quiet))
 
         # Handle case where no components were found
         if not result.components:
-            if format == "table":
+            if format == "table" and not quiet:
                 console.print()
                 console.print("[green]No AI/LLM components detected in the scan.[/green]")
                 console.print("[dim]This could mean your project doesn't use AI libraries,[/dim]")
@@ -268,7 +364,7 @@ def scan(
                 # Still generate a report for non-table formats
                 pass
         else:
-            if format == "table":
+            if format == "table" and not quiet:
                 console.print()
                 console.print(f"[green]Found {len(result.components)} AI/LLM component(s)[/green]")
                 console.print()
@@ -281,7 +377,7 @@ def scan(
             # Write to file if output specified
             if output:
                 reporter.write(result, output)
-                if format == "table":
+                if format == "table" and not quiet:
                     console.print(f"[green]Report written to {output}[/green]")
             elif format == "table":
                 # Print table format directly (already rendered by Rich)
@@ -293,6 +389,75 @@ def scan(
         except Exception as e:
             console.print(f"[red]Error generating report: {e}[/red]")
             raise typer.Exit(1)
+
+        # Save to dashboard database if requested
+        if save_dashboard:
+            _save_to_dashboard(result, end_time - start_time, quiet=quiet)
+
+        # --- Policy enforcement ---
+        exit_code = 0
+
+        # --fail-on severity check
+        if fail_on and result.components:
+            severity_order = {"critical": 4, "high": 3, "medium": 2, "low": 1}
+            threshold = severity_order.get(fail_on.lower())
+            if threshold is None:
+                console.print(
+                    f"[yellow]Invalid --fail-on value: {fail_on}. "
+                    f"Use: critical, high, medium, low[/yellow]"
+                )
+            else:
+                for comp in result.components:
+                    comp_level = severity_order.get(comp.risk.severity.value, 0)
+                    if comp_level >= threshold:
+                        if quiet:
+                            print(
+                                f"FAIL: {comp.name} has severity "
+                                f"{comp.risk.severity.value.upper()} "
+                                f"(threshold: {fail_on.upper()})",
+                                file=sys.stderr,
+                            )
+                        else:
+                            console.print(
+                                f"[red]POLICY FAIL: Found component '{comp.name}' "
+                                f"with severity {comp.risk.severity.value.upper()} "
+                                f"(threshold: {fail_on.upper()})[/red]"
+                            )
+                        exit_code = 1
+                        break
+
+        # --policy file evaluation
+        if policy:
+            from ai_bom.policy import evaluate_policy, load_policy
+
+            try:
+                pol = load_policy(policy)
+                passed, violations = evaluate_policy(result, pol)
+                if not passed:
+                    exit_code = 1
+                    if quiet:
+                        print(
+                            f"FAIL: {len(violations)} policy violation(s)",
+                            file=sys.stderr,
+                        )
+                    else:
+                        console.print()
+                        console.print(
+                            f"[red]POLICY VIOLATIONS ({len(violations)}):[/red]"
+                        )
+                        for v in violations:
+                            console.print(f"  [red]- {v}[/red]")
+                elif not quiet and format == "table":
+                    console.print("[green]Policy check passed.[/green]")
+            except FileNotFoundError as e:
+                console.print(f"[red]{e}[/red]")
+                exit_code = 1
+            except ValueError as e:
+                console.print(f"[red]{e}[/red]")
+                exit_code = 1
+
+        if exit_code != 0:
+            raise typer.Exit(exit_code)
 
     except KeyboardInterrupt:
         console.print("\n[yellow]Scan cancelled by user.[/yellow]")
@@ -307,6 +472,113 @@ def scan(
                 console.print(
                     f"[yellow]Warning: Failed to clean up temp directory: {e}[/yellow]"
                 )
+
+
+@app.command(name="scan-cloud")
+def scan_cloud(
+    provider: str = typer.Argument(help="Cloud provider: aws, gcp, azure"),
+    format: str = typer.Option(
+        "table", "--format", "-f",
+        help="Output format: table, cyclonedx, json, html, markdown, sarif, spdx3",
+    ),
+    output: Optional[str] = typer.Option(None, "--output", "-o", help="Output file path"),
+    quiet: bool = typer.Option(False, "--quiet", "-q", help="Suppress banner and progress"),
+) -> None:
+    """Scan cloud provider for managed AI/ML services."""
+    provider = provider.lower()
+    provider_map = {
+        "aws": "aws-live",
+        "gcp": "gcp-live",
+        "azure": "azure-live",
+    }
+    scanner_name = provider_map.get(provider)
+    if scanner_name is None:
+        console.print(
+            f"[red]Unknown cloud provider: {provider}. "
+            f"Choose from: {', '.join(provider_map)}[/red]"
+        )
+        raise typer.Exit(1)
+
+    if format == "table" and not quiet:
+        _print_banner()
+
+    # Find and enable the requested live scanner
+    scanners = get_all_scanners()
+    live_scanner = None
+    for s in scanners:
+        if s.name == scanner_name:
+            live_scanner = s
+            break
+
+    if live_scanner is None:
+        console.print(
+            f"[red]{provider.upper()} live scanner is not available. "
+            f"Install the SDK: pip install ai-bom[{provider}][/red]"
+        )
+        raise typer.Exit(1)
+
+    # Enable and run
+    live_scanner.enabled = True  # type: ignore[attr-defined]
+
+    if format == "table" and not quiet:
+        console.print(f"[cyan]Scanning {provider.upper()} account for AI/ML services...[/cyan]")
+        console.print()
+
+    result = ScanResult(target_path=f"cloud://{provider}")
+    start_time = time.time()
+
+    try:
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            console=console,
+            disable=(format != "table" or quiet),
+        ) as progress:
+            task = progress.add_task(
+                f"Running {live_scanner.name} scanner...", total=None,
+            )
+            components = live_scanner.scan(Path("."))
+            for comp in components:
+                comp.risk = score_component(comp)
+            result.components.extend(components)
+            progress.update(task, completed=True)
+    except Exception as exc:
+        console.print(f"[red]Cloud scan error: {exc}[/red]")
+        raise typer.Exit(1)
+    finally:
+        live_scanner.enabled = False  # type: ignore[attr-defined]
+
+    result.summary.scan_duration_seconds = time.time() - start_time
+    result.build_summary()
+
+    if not result.components:
+        if format == "table" and not quiet:
+            console.print()
+            console.print(
+                f"[green]No AI/ML services found in {provider.upper()} account.[/green]"
+            )
+    else:
+        if format == "table" and not quiet:
+            console.print()
+            console.print(
+                f"[green]Found {len(result.components)} AI/ML service(s)[/green]"
+            )
+            console.print()
+
+    try:
+        reporter = get_reporter(format)
+        output_str = reporter.render(result)
+        if output:
+            reporter.write(result, output)
+            if format == "table" and not quiet:
+                console.print(f"[green]Report written to {output}[/green]")
+        elif format == "table":
+            print(output_str)
+        else:
+            print(output_str)
+    except Exception as exc:
+        console.print(f"[red]Error generating report: {exc}[/red]")
+        raise typer.Exit(1)
 
 
 @app.command()
@@ -331,13 +603,42 @@ def demo() -> None:
         format="table",
         output=None,
         deep=False,
-        include_tests=False,
         severity=None,
         no_color=False,
         n8n_url=None,
         n8n_api_key=None,
         n8n_local=False,
+        quiet=False,
+        save_dashboard=False,
+        fail_on=None,
+        policy=None,
     )
+
+
+@app.command()
+def dashboard(
+    host: str = typer.Option("127.0.0.1", help="Host to bind"),
+    port: int = typer.Option(8000, help="Port to bind"),
+) -> None:
+    """Launch the AI-BOM web dashboard."""
+    try:
+        import uvicorn
+    except ImportError:
+        console.print(
+            "[red]Dashboard dependencies not installed. "
+            "Install with: pip install ai-bom[dashboard][/red]"
+        )
+        raise typer.Exit(1)
+
+    from ai_bom.dashboard import create_app
+
+    _print_banner()
+    console.print(f"[cyan]Starting dashboard at http://{host}:{port}[/cyan]")
+    console.print("[dim]Press Ctrl+C to stop[/dim]")
+    console.print()
+
+    dash_app = create_app()
+    uvicorn.run(dash_app, host=host, port=port, log_level="info")
 
 
 @app.command()

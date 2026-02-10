@@ -11,6 +11,8 @@ from ai_bom.cli import app
 
 runner = CliRunner()
 
+demo_path = Path(__file__).parent.parent / "examples" / "demo-project"
+
 
 # ── version command ──────────────────────────────────────────────
 
@@ -102,10 +104,102 @@ def test_demo_command():
 
 
 def test_scan_html_format(tmp_path):
-    demo_path = Path(__file__).parent.parent / "examples" / "demo-project"
     out_file = tmp_path / "report.html"
     result = runner.invoke(app, ["scan", str(demo_path), "--format", "html", "-o", str(out_file)])
     assert result.exit_code == 0
     assert out_file.exists()
     content = out_file.read_text()
     assert "<html" in content.lower()
+
+
+# ── v2.0 feature tests ─────────────────────────────────────────
+
+
+def test_scan_spdx3_format(tmp_path):
+    out_file = tmp_path / "out.spdx.json"
+    result = runner.invoke(
+        app, ["scan", str(demo_path), "--format", "spdx3", "-o", str(out_file)],
+    )
+    assert result.exit_code == 0
+    assert out_file.exists()
+    data = json.loads(out_file.read_text())
+    assert data["type"] == "SpdxDocument"
+
+
+def test_scan_deep_mode(tmp_path):
+    # Create a .py file with a known AI import
+    py_file = tmp_path / "app.py"
+    py_file.write_text("import openai\nclient = openai.OpenAI()\n")
+    out_file = tmp_path / "out.cdx.json"
+    result = runner.invoke(
+        app, ["scan", str(tmp_path), "--deep", "--format", "cyclonedx", "-o", str(out_file)],
+    )
+    assert result.exit_code == 0
+    data = json.loads(out_file.read_text())
+    # AST scanner should find the openai import
+    names = [c.get("name", "") for c in data.get("components", [])]
+    assert any("openai" in n.lower() for n in names)
+
+
+def test_scan_fail_on_exits_1():
+    result = runner.invoke(
+        app, ["scan", str(demo_path), "--fail-on", "low", "--quiet"],
+    )
+    # demo-project has low+ severity components
+    assert result.exit_code == 1
+
+
+def test_scan_fail_on_invalid_severity():
+    result = runner.invoke(
+        app, ["scan", str(demo_path), "--fail-on", "bogus", "--quiet"],
+    )
+    # invalid severity is a no-op warning, should still exit 0
+    assert result.exit_code == 0
+
+
+def test_scan_policy_fail(tmp_path):
+    policy_file = tmp_path / "policy.yml"
+    policy_file.write_text("max_critical: 0\nmax_high: 0\nmax_risk_score: 1\n")
+    result = runner.invoke(
+        app, ["scan", str(demo_path), "--policy", str(policy_file)],
+    )
+    assert result.exit_code == 1
+
+
+def test_scan_policy_missing_file():
+    result = runner.invoke(
+        app, ["scan", str(demo_path), "--policy", "/nonexistent-policy.yml"],
+    )
+    assert result.exit_code == 1
+
+
+def test_scan_save_dashboard(tmp_path, monkeypatch):
+    # Monkeypatch DB_PATH to a temp location
+    monkeypatch.setattr("ai_bom.dashboard.db.DB_PATH", tmp_path / "test.db")
+    result = runner.invoke(
+        app, ["scan", str(demo_path), "--save-dashboard"],
+    )
+    assert result.exit_code == 0
+    assert "Scan saved to dashboard" in result.output
+
+
+def test_scan_cloud_invalid_provider():
+    result = runner.invoke(app, ["scan-cloud", "invalid"])
+    assert result.exit_code == 1
+    assert "Unknown cloud provider" in result.output
+
+
+def test_dashboard_command_missing_deps(monkeypatch):
+    import builtins
+
+    real_import = builtins.__import__
+
+    def mock_import(name, *args, **kwargs):
+        if name == "uvicorn":
+            raise ImportError("mocked")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", mock_import)
+    result = runner.invoke(app, ["dashboard"])
+    assert result.exit_code == 1
+    assert "not installed" in result.output.lower()

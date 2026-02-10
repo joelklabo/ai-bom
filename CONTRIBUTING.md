@@ -40,7 +40,7 @@ pytest -v --cov=ai_bom --cov-report=term-missing
 pytest tests/test_cli.py -v
 ```
 
-All 124 tests must pass before submitting a PR.
+All tests must pass before submitting a PR.
 
 ## Project Structure
 

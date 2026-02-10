@@ -18,7 +18,7 @@
     <img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" />
     <img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python" />
     <img src="https://img.shields.io/badge/CycloneDX-1.6-green.svg" alt="CycloneDX" />
-    <img src="https://img.shields.io/badge/tests-135%20passing-brightgreen.svg" alt="Tests" />
+    <img src="https://img.shields.io/badge/tests-passing-brightgreen.svg" alt="Tests" />
     <img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" />
   </p>
 </div>
@@ -52,12 +52,34 @@ Shadow AI is the new Shadow IT. Developers are integrating AI services — LLMs,
 
 ## Quick Start
 
+### Recommended: Install with pipx (isolated environment)
+
 ```bash
+pipx install ai-bom
+
+ai-bom scan .
+ai-bom scan . --format cyclonedx --output ai-bom.json
+```
+
+### Alternative: Install in a virtual environment
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
 pip install ai-bom
 
 ai-bom scan .
+```
 
-ai-bom scan . --format cyclonedx --output ai-bom.json
+### Troubleshooting: PEP 668 / "externally-managed-environment" error
+
+Modern Linux distros (Ubuntu 24.04+, Fedora 39+) and macOS 14+ block `pip install` at the system level. If you see `error: externally-managed-environment`, use **pipx** (recommended) or a **venv** as shown above. Do **not** use `--break-system-packages`.
+
+```bash
+# Install pipx if needed
+sudo apt install pipx   # Debian/Ubuntu
+brew install pipx        # macOS
+
+pipx install ai-bom
 ```
 
 ## What It Finds
@@ -72,9 +94,12 @@ ai-bom scan . --format cyclonedx --output ai-bom.json
 | Cloud AI | AWS Bedrock, SageMaker, Comprehend, Kendra, Lex \| Azure OpenAI, AI Foundry, ML \| Google Vertex AI, Dialogflow CX | Cloud |
 | AI Endpoints | api.openai.com, api.anthropic.com, localhost:11434 | Network |
 | n8n AI Nodes | AI Agents, LLM Chat, MCP Client, Tools, Embeddings | n8n |
-| MCP Servers | Model Context Protocol connections | Code, n8n |
+| MCP Servers | Model Context Protocol connections | Code, n8n, Network |
+| A2A Protocol | Google Agent-to-Agent protocol | Code |
+| CrewAI Flows | @crew, @agent, @task, @flow decorators | Code, AST |
+| DeepSeek | DeepSeek models and SDK | Code |
 
-**21+ AI SDKs detected** across Python, JavaScript, TypeScript, Java, Go, Rust, and Ruby.
+**25+ AI SDKs detected** across Python, JavaScript, TypeScript, Java, Go, Rust, and Ruby. Now with **AST-based deep scanning**, **live cloud API scanning**, and **CI/CD policy enforcement**.
 
 ## Demo
 
@@ -136,6 +161,14 @@ ai-bom scan . --format html --output report.html
 ```
 
 Self-contained dark-mode dashboard with sortable tables, severity charts, and risk breakdowns. Share with stakeholders — no server required.
+
+### AI-BOM Extended SPDX
+
+```bash
+ai-bom scan . --format spdx3 --output report.spdx.json
+```
+
+SPDX 3.0-inspired JSON-LD output with AI-BOM extensions (`ai-bom:AIPackage`, `ai-bom:safetyRiskAssessment`). These extensions provide AI-specific metadata beyond what standard SPDX currently supports. Not validated against the official SPDX 3.0 spec.
 
 ### Markdown
 
@@ -223,9 +256,79 @@ ai-bom scan https://github.com/org/repo.git
 
 **Level 3** — Scans `.env`, `.env.local`, `.env.production`, and config files (`.yaml`, `.json`, `.toml`, `.ini`). Detects both endpoint URLs and hardcoded API keys. For maximum coverage, ensure environment files are accessible (they're often gitignored).
 
-**Level 4** — Scans Terraform (`.tf`) and CloudFormation (`.yaml`, `.json`) files for cloud-provisioned AI services. Covers 60+ AWS, Azure, and GCP resource types. For live cloud inventory (not yet available), would require IAM read permissions.
+**Level 4** — Scans Terraform (`.tf`) and CloudFormation (`.yaml`, `.json`) files for cloud-provisioned AI services. Covers 60+ AWS, Azure, and GCP resource types.
 
-> **Tip:** For CI/CD pipelines, Level 1-3 are automatic. Level 4 requires IaC files in the repo (Terraform/CloudFormation). A future release will add live cloud API scanning with IAM credentials.
+**Level 5 — Live Cloud API** — Scan running cloud accounts for managed AI services:
+```bash
+pip install ai-bom[aws]    # or ai-bom[gcp] or ai-bom[azure]
+ai-bom scan-cloud aws      # Bedrock, SageMaker, Comprehend, Kendra
+ai-bom scan-cloud gcp      # Vertex AI, Dialogflow CX
+ai-bom scan-cloud azure    # Azure OpenAI, Cognitive Services, Azure ML
+```
+
+> **Tip:** For CI/CD pipelines, Level 1-3 are automatic. Level 4 requires IaC files in the repo. Level 5 requires cloud provider credentials.
+
+## Web Dashboard
+
+```bash
+pip install ai-bom[dashboard]
+
+# Save scan results to dashboard
+ai-bom scan . --save-dashboard
+
+# Launch the dashboard
+ai-bom dashboard
+```
+
+Opens a local web dashboard at http://127.0.0.1:8000 with:
+- Scan history with timestamps, targets, and component counts
+- Drill-down into individual scans with sortable component tables
+- Severity distribution charts and risk score visualizations
+- Side-by-side scan comparison
+
+## CI/CD Policy Enforcement
+
+```bash
+# Fail CI if any critical findings
+ai-bom scan . --fail-on critical --quiet
+
+# Use a YAML policy file
+ai-bom scan . --policy .ai-bom-policy.yml --quiet
+```
+
+Policy files support thresholds, blocked providers, and blocked flags:
+
+```yaml
+# .ai-bom-policy.yml
+max_critical: 0
+max_high: 5
+max_risk_score: 75
+block_providers: []
+block_flags:
+  - hardcoded_api_key
+  - hardcoded_credentials
+```
+
+### GitHub Action
+
+```yaml
+- uses: trusera/ai-bom@v2
+  with:
+    fail-on: critical
+    policy-file: .ai-bom-policy.yml
+```
+
+## Deep Scanning (AST Mode)
+
+```bash
+ai-bom scan . --deep
+```
+
+Enables Python AST-based analysis that detects:
+- Import statements for AI packages
+- Decorator patterns (`@agent`, `@tool`, `@crew`, `@task`, `@flow`)
+- Function calls to AI APIs
+- String literals containing model names
 
 ## Comparison
 
@@ -286,7 +389,7 @@ git clone https://github.com/trusera/ai-bom.git
 cd ai-bom
 pip install -e ".[dev]"
 
-# Run tests (135 passing)
+# Run tests
 pytest tests/ -v
 
 # Run demo
@@ -299,34 +402,50 @@ ai-bom demo
 Usage: ai-bom [OPTIONS] COMMAND [ARGS]...
 
 Commands:
-  scan     Scan a directory or repository for AI/LLM components
-  demo     Run demo scan on bundled example project
-  version  Show AI-BOM version
+  scan        Scan a directory or repository for AI/LLM components
+  scan-cloud  Scan cloud provider for managed AI/ML services
+  dashboard   Launch the AI-BOM web dashboard
+  demo        Run demo scan on bundled example project
+  version     Show AI-BOM version
 
 Scan Options:
-  --format, -f     Output format: table | cyclonedx | json | html | markdown | sarif
-  --output, -o     Write report to file
-  --severity, -s   Minimum severity: critical | high | medium | low
-  --include-tests  Include test directories in scan
-  --n8n-local      Scan ~/.n8n/ directory for workflows
-  --no-color       Disable colored output
+  --format, -f       Output format: table | cyclonedx | json | html | markdown | sarif | spdx3
+  --output, -o       Write report to file
+  --severity, -s     Minimum severity: critical | high | medium | low
+  --deep             Enable AST-based deep scanning
+  --quiet, -q        Suppress banner/progress (for CI)
+  --fail-on          Exit code 1 if severity threshold met: critical | high | medium | low
+  --policy           Path to YAML policy file for CI/CD enforcement
+  --save-dashboard   Save results to dashboard database
+  --n8n-url          n8n instance URL for live API scanning
+  --n8n-api-key      n8n API key for live scanning
+  --n8n-local        Scan ~/.n8n/ directory for workflows
+  --no-color         Disable colored output
 ```
 
 ## Roadmap
 
 - [x] Multi-language AI SDK detection (Python, JS, TS, Java, Go, Rust, Ruby)
 - [x] CycloneDX 1.6 SBOM output
+- [x] AI-BOM Extended SPDX output (SPDX 3.0-inspired with AI extensions)
 - [x] n8n workflow scanning
-- [x] MCP server detection
+- [x] Live n8n API integration (scan running instances)
+- [x] MCP server detection + MCP config file parsing
 - [x] HTML dashboard reports
+- [x] Interactive web dashboard (FastAPI + SQLite)
 - [x] Risk scoring engine
-- [ ] AST-based scanning for deeper analysis
-- [ ] Live n8n API integration (scan running instances)
+- [x] AST-based scanning for deeper analysis (`--deep`)
 - [x] SARIF output format (GitHub Code Scanning integration)
-- [x] GitHub Actions marketplace action (`trusera/ai-bom@v1`)
+- [x] GitHub Actions marketplace action (`trusera/ai-bom@v2`)
 - [x] Single-file scanning
+- [x] CI/CD policy enforcement (`--fail-on`, `--policy`)
+- [x] Live cloud API scanning (AWS, GCP, Azure)
+- [x] A2A protocol detection
+- [x] CrewAI flow detection
+- [x] DeepSeek, GPT-4.5, Claude 4/4.5, Gemini 2.0, Llama 4 model patterns
 - [ ] VS Code extension
-- [ ] CI/CD policy enforcement (fail builds on critical findings)
+- [ ] Scheduled continuous monitoring
+- [ ] AI agent runtime tracing
 
 ## Contributing
 

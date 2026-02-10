@@ -32,6 +32,14 @@ inputs:
     description: "Upload SARIF results to GitHub Code Scanning"
     required: false
     default: "true"
+  fail-on:
+    description: "Fail if any component meets or exceeds severity (critical, high, medium, low)"
+    required: false
+    default: ""
+  policy-file:
+    description: "Path to YAML policy file for enforcement"
+    required: false
+    default: ""
   python-version:
     description: "Python version to use"
     required: false
@@ -54,9 +62,15 @@ runs:
       shell: bash
       continue-on-error: true  # Scan findings should not fail the workflow
       run: |
-        ARGS="scan ${{ inputs.path }} --format ${{ inputs.format }} -o ${{ inputs.output }}"
+        ARGS="scan ${{ inputs.path }} --format ${{ inputs.format }} -o ${{ inputs.output }} --quiet"
         if [ -n "${{ inputs.severity }}" ]; then
           ARGS="$ARGS --severity ${{ inputs.severity }}"
+        fi
+        if [ -n "${{ inputs.fail-on }}" ]; then
+          ARGS="$ARGS --fail-on ${{ inputs.fail-on }}"
+        fi
+        if [ -n "${{ inputs.policy-file }}" ]; then
+          ARGS="$ARGS --policy ${{ inputs.policy-file }}"
         fi
         ai-bom $ARGS
 

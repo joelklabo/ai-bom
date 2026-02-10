@@ -8,10 +8,12 @@ This scanner examines environment files and configuration files to detect:
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
-from typing import Set, Tuple
+from typing import Any, Set, Tuple
 
+from ai_bom.config import MCP_CONFIG_FILES
 from ai_bom.detectors.endpoint_db import detect_api_key, match_endpoint
 from ai_bom.models import (
     AIComponent,
@@ -144,6 +146,16 @@ class NetworkScanner(BaseScanner):
                 elif self._is_config_file(file_path) and filename not in SKIP_CONFIG_FILES:
                     files_to_scan.append(file_path)
 
+        # Collect MCP config files
+        mcp_files: list[Path] = []
+
+        if path.is_file():
+            if path.name in MCP_CONFIG_FILES:
+                mcp_files.append(path)
+        else:
+            for file_path in self.iter_files(path, filenames=MCP_CONFIG_FILES):
+                mcp_files.append(file_path)
+
         # Scan each file
         for file_path in files_to_scan:
             try:
@@ -152,6 +164,13 @@ class NetworkScanner(BaseScanner):
                 )
             except Exception:
                 # Skip files that can't be read or parsed
+                continue
+
+        # Scan MCP config files
+        for file_path in mcp_files:
+            try:
+                components.extend(self._scan_mcp_config(file_path))
+            except Exception:
                 continue
 
         return components
@@ -475,6 +494,84 @@ class NetworkScanner(BaseScanner):
         # Check if it matches API key patterns
         api_keys = detect_api_key(value)
         return len(api_keys) > 0
+
+    def _scan_mcp_config(self, file_path: Path) -> list[AIComponent]:
+        """Parse an MCP config file and extract server definitions.
+
+        Looks for ``mcpServers`` key in JSON and creates an AIComponent for
+        each server entry.  Non-localhost URLs are flagged as
+        ``mcp_unknown_server``.
+
+        Args:
+            file_path: Path to the MCP config JSON file
+
+        Returns:
+            List of detected MCP server components
+        """
+        components: list[AIComponent] = []
+
+        try:
+            content = file_path.read_text(encoding="utf-8", errors="ignore")
+            data: Any = json.loads(content)
+        except (json.JSONDecodeError, Exception):
+            return components
+
+        if not isinstance(data, dict):
+            return components
+
+        servers = data.get("mcpServers", {})
+        if not isinstance(servers, dict):
+            return components
+
+        for server_name, server_config in servers.items():
+            flags: list[str] = []
+
+            # Determine if the server URL is non-localhost
+            url = ""
+            if isinstance(server_config, dict):
+                url = server_config.get("url", "") or ""
+                # Also check args for URLs (stdio transport)
+                args = server_config.get("args", [])
+                if isinstance(args, list):
+                    for arg in args:
+                        if isinstance(arg, str) and ("http://" in arg or "https://" in arg):
+                            url = arg
+                            break
+
+            if url and not self._is_localhost(url):
+                flags.append("mcp_unknown_server")
+
+            component = AIComponent(
+                name=f"MCP Server: {server_name}",
+                type=ComponentType.mcp_server,
+                provider="MCP",
+                location=SourceLocation(
+                    file_path=str(file_path),
+                    line_number=None,
+                    context_snippet=f"mcpServers.{server_name}",
+                ),
+                usage_type=UsageType.tool_use,
+                risk=RiskAssessment(),
+                flags=flags,
+                source="network",
+                metadata={"server_name": server_name, "url": url},
+            )
+            components.append(component)
+
+        return components
+
+    def _is_localhost(self, url: str) -> bool:
+        """Check if a URL points to localhost.
+
+        Args:
+            url: URL string to check
+
+        Returns:
+            True if the URL is localhost / 127.0.0.1
+        """
+        localhost_patterns = ["localhost", "127.0.0.1", "0.0.0.0", "::1"]
+        url_lower = url.lower()
+        return any(p in url_lower for p in localhost_patterns)
 
     def _map_usage_type(self, usage_type: str) -> UsageType:
         """Map usage type string to UsageType enum.

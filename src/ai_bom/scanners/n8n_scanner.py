@@ -5,7 +5,10 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from ai_bom.integrations.n8n_api import N8nAPIClient
 
 from ai_bom.config import API_KEY_PATTERNS, N8N_AI_NODE_TYPES
 from ai_bom.models import (
@@ -88,6 +91,56 @@ class N8nScanner(BaseScanner):
         self._detect_agent_chains(workflows, components)
 
         return components
+
+    def scan_from_api(self, client: N8nAPIClient) -> list[AIComponent]:
+        """Scan workflows fetched from a live n8n instance via API.
+
+        Args:
+            client: An authenticated N8nAPIClient instance.
+
+        Returns:
+            List of detected AI components from all workflows.
+        """
+        components: list[AIComponent] = []
+        workflows: dict[str, N8nWorkflowInfo] = {}
+
+        all_workflow_data = client.list_workflows()
+
+        for workflow_data in all_workflow_data:
+            if not self._is_valid_workflow(workflow_data):
+                continue
+
+            # Use the workflow name or id as a synthetic file path
+            wf_name = workflow_data.get("name", "unknown")
+            wf_id = workflow_data.get("id", "unknown")
+            synthetic_path = Path(f"n8n://workflows/{wf_id}/{wf_name}.json")
+
+            workflow_info = self._extract_workflow_info(workflow_data, synthetic_path)
+            workflows[str(synthetic_path)] = workflow_info
+
+            workflow_components = self._extract_ai_components(
+                workflow_data, synthetic_path, workflow_info
+            )
+
+            self._inspect_base_nodes(
+                workflow_data, synthetic_path, workflow_info, workflow_components
+            )
+
+            self._apply_workflow_risks(workflow_data, workflow_components)
+            components.extend(workflow_components)
+
+        self._detect_agent_chains(workflows, components)
+
+        return components
+
+    @staticmethod
+    def _is_valid_workflow(data: dict[str, Any]) -> bool:
+        """Check whether a dict looks like a valid n8n workflow."""
+        return (
+            isinstance(data, dict)
+            and isinstance(data.get("nodes"), list)
+            and isinstance(data.get("connections"), dict)
+        )
 
     def _load_workflow(self, file_path: Path) -> dict[str, Any] | None:
         """Load and validate n8n workflow JSON file.
