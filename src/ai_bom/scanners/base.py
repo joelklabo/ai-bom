@@ -7,6 +7,7 @@ import os
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from pathlib import Path
+from typing import Any
 
 from ai_bom.config import EXCLUDED_DIRS
 from ai_bom.models import AIComponent
@@ -17,11 +18,11 @@ logger = logging.getLogger(__name__)
 _scanner_registry: list[type[BaseScanner]] = []
 
 # Cached .ai-bomignore spec (module-level singleton)
-_ignore_spec: object | None = None
+_ignore_spec: Any = None
 _ignore_spec_loaded: bool = False
 
 
-def _load_ignore_spec(root: Path) -> object | None:
+def _load_ignore_spec(root: Path) -> Any:
     """Load .ai-bomignore from root directory using pathspec (gitignore syntax).
 
     Caches the spec in a module-level variable so it is only loaded once per

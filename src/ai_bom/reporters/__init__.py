@@ -10,7 +10,7 @@ from ai_bom.reporters.markdown import MarkdownReporter
 from ai_bom.reporters.sarif import SARIFReporter
 from ai_bom.reporters.spdx3 import SPDX3Reporter
 
-REPORTERS = {
+REPORTERS: dict[str, type[BaseReporter]] = {
     "table": CLIReporter,
     "json": CycloneDXReporter,
     "cyclonedx": CycloneDXReporter,

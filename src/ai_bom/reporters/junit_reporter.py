@@ -5,7 +5,7 @@ from __future__ import annotations
 import io
 import xml.etree.ElementTree as ET
 
-from ai_bom.models import ScanResult
+from ai_bom.models import AIComponent, ScanResult
 from ai_bom.reporters.base import BaseReporter
 
 
@@ -119,7 +119,7 @@ class JUnitReporter(BaseReporter):
         tree.write(output, encoding="utf-8", xml_declaration=True)
         return output.getvalue().decode("utf-8")
 
-    def _is_failure(self, component) -> bool:
+    def _is_failure(self, component: "AIComponent") -> bool:
         """Determine if a component should be marked as a test failure.
 
         Args:

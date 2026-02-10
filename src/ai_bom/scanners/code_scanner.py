@@ -431,93 +431,93 @@ class CodeScanner(BaseScanner):
                     components.append(component)
 
                 # Check each LLM pattern
-                for pattern in LLM_PATTERNS:
+                for llm_pat in LLM_PATTERNS:
                     # Check import patterns
                     import_matched = any(
                         re.search(import_pattern, line)
-                        for import_pattern in pattern.import_patterns
+                        for import_pattern in llm_pat.import_patterns
                     )
 
                     # Check usage patterns
                     usage_matched = any(
-                        re.search(usage_pattern, line) for usage_pattern in pattern.usage_patterns
+                        re.search(usage_pattern, line) for usage_pattern in llm_pat.usage_patterns
                     )
 
                     if import_matched or usage_matched:
                         # Only create one component per SDK per file
                         # (track the first occurrence)
-                        if pattern.sdk_name in file_seen_sdks:
+                        if llm_pat.sdk_name in file_seen_sdks:
                             # But still scan for models on subsequent lines
-                            if pattern.model_extraction and usage_matched:
-                                model_match = re.search(pattern.model_extraction, line)
+                            if llm_pat.model_extraction and usage_matched:
+                                model_match = re.search(llm_pat.model_extraction, line)
                                 if model_match:
                                     model_name = model_match.group(1)
-                                    flags: list[str] = []
+                                    model_flags: list[str] = []
 
                                     # Check for deprecated model
                                     if model_name in DEPRECATED_MODELS:
-                                        flags.append("deprecated_model")
+                                        model_flags.append("deprecated_model")
 
                                     # Check for unpinned model
                                     if not self._is_model_pinned(model_name):
-                                        flags.append("unpinned_model")
+                                        model_flags.append("unpinned_model")
 
                                     # Create a model component
-                                    if flags:  # Only if there are issues
+                                    if model_flags:
                                         component = AIComponent(
-                                            name=f"{pattern.sdk_name} Model",
+                                            name=f"{llm_pat.sdk_name} Model",
                                             type=ComponentType.model,
-                                            provider=pattern.provider,
+                                            provider=llm_pat.provider,
                                             model_name=model_name,
-                                            usage_type=pattern.usage_type,
+                                            usage_type=llm_pat.usage_type,
                                             location=SourceLocation(
                                                 file_path=str(source_file),
                                                 line_number=line_num,
                                                 context_snippet=line.strip()[:200],
                                             ),
-                                            flags=flags,
+                                            flags=model_flags,
                                             source="code",
                                         )
                                         components.append(component)
                             continue
 
-                        file_seen_sdks.add(pattern.sdk_name)
+                        file_seen_sdks.add(llm_pat.sdk_name)
 
                         # Check for shadow AI
-                        is_shadow_ai = not self._is_declared(pattern.dep_names, declared_deps)
+                        is_shadow_ai = not self._is_declared(llm_pat.dep_names, declared_deps)
 
                         # Extract model name if pattern supports it
                         model_name = ""
-                        flags: list[str] = []
+                        sdk_flags: list[str] = []
 
-                        if pattern.model_extraction and usage_matched:
-                            model_match = re.search(pattern.model_extraction, line)
+                        if llm_pat.model_extraction and usage_matched:
+                            model_match = re.search(llm_pat.model_extraction, line)
                             if model_match:
                                 model_name = model_match.group(1)
 
                                 # Check for deprecated model
                                 if model_name in DEPRECATED_MODELS:
-                                    flags.append("deprecated_model")
+                                    sdk_flags.append("deprecated_model")
 
                                 # Check for unpinned model (just a bare name)
                                 if not self._is_model_pinned(model_name):
-                                    flags.append("unpinned_model")
+                                    sdk_flags.append("unpinned_model")
 
                         if is_shadow_ai:
-                            flags.append("shadow_ai")
+                            sdk_flags.append("shadow_ai")
 
                         component = AIComponent(
-                            name=pattern.sdk_name,
-                            type=pattern.component_type,
-                            provider=pattern.provider,
+                            name=llm_pat.sdk_name,
+                            type=llm_pat.component_type,
+                            provider=llm_pat.provider,
                             model_name=model_name,
-                            usage_type=pattern.usage_type,
+                            usage_type=llm_pat.usage_type,
                             location=SourceLocation(
                                 file_path=str(source_file),
                                 line_number=line_num,
                                 context_snippet=line.strip()[:200],
                             ),
-                            flags=flags,
+                            flags=sdk_flags,
                             source="code",
                         )
                         components.append(component)
