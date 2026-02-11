@@ -1,11 +1,13 @@
 <div align="center">
   <img src="assets/logo.png" alt="AI-BOM Logo" width="80" />
+  <img src="assets/maskot.png" alt="Trusera Mascot" width="80" style="margin-left: 12px" />
   <h1>AI-BOM</h1>
   <p><strong>Discover every AI agent, model, and API hiding in your infrastructure</strong></p>
 
   <!-- badges -->
   <p>
     <a href="https://pypi.org/project/ai-bom/"><img src="https://img.shields.io/pypi/v/ai-bom.svg" alt="PyPI" /></a>
+    <a href="https://www.npmjs.com/package/n8n-nodes-trusera"><img src="https://img.shields.io/npm/v/n8n-nodes-trusera.svg" alt="npm" /></a>
     <img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+" />
     <img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" />
     <img src="https://img.shields.io/badge/CycloneDX-1.6-green.svg" alt="CycloneDX 1.6" />
@@ -16,6 +18,7 @@
 
   <p>
     <a href="#quick-start">Quick Start</a> &nbsp;|&nbsp;
+    <a href="#n8n-community-node">n8n Node</a> &nbsp;|&nbsp;
     <a href="#what-it-finds">What It Finds</a> &nbsp;|&nbsp;
     <a href="#comparison">Comparison</a> &nbsp;|&nbsp;
     <a href="#architecture">Architecture</a> &nbsp;|&nbsp;
@@ -79,6 +82,33 @@ pipx install ai-bom
 ```
 
 </details>
+
+## n8n Community Node
+
+Scan all your n8n workflows for AI security risks — directly inside n8n.
+
+```bash
+npm install n8n-nodes-trusera
+```
+
+Or install via the n8n UI: **Settings > Community Nodes > Install > `n8n-nodes-trusera`**
+
+### Setup
+
+1. Add a **Trusera Dashboard** node to a workflow
+2. Create credentials with your n8n API URL and API key
+3. Optionally set a dashboard password for AES-256-GCM encryption
+4. Execute the node — it fetches all workflows, scans them, and returns an interactive HTML dashboard
+
+### Dashboard features
+
+- Severity distribution charts and risk score stat cards
+- Sortable findings table with search and severity/type filters
+- Per-finding remediation cards with actionable fix steps and guardrail recommendations
+- OWASP LLM Top 10 category mapping for every risk flag
+- CSV and JSON export
+- Light/dark theme toggle
+- Optional password protection (AES-256-GCM encrypted, client-side decryption)
 
 ## What It Finds
 

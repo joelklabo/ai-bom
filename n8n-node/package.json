@@ -1,0 +1,62 @@
+{
+  "name": "n8n-nodes-trusera",
+  "version": "0.4.0",
+  "description": "n8n community node to scan workflows for AI security risks using Trusera AI-BOM",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "ai-security",
+    "ai-bom",
+    "trusera",
+    "workflow-security"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://trusera.dev",
+  "author": {
+    "name": "Trusera",
+    "email": "info@trusera.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trusera/ai-bom"
+  },
+  "bugs": {
+    "url": "https://github.com/trusera/ai-bom/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && for d in nodes/*/; do n=$(basename $d); mkdir -p dist/nodes/$n && cp $d/trusera.* dist/nodes/$n/ 2>/dev/null; done; true",
+    "lint": "eslint . --ext .ts",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/TruseraApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/TruseraDashboard/TruseraDashboard.node.js",
+      "dist/nodes/TruseraScan/TruseraScan.node.js",
+      "dist/nodes/TruseraPolicy/TruseraPolicy.node.js",
+      "dist/nodes/TruseraReport/TruseraReport.node.js"
+    ]
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "@types/jest": "^29.5.0",
+    "n8n-workflow": "^1.0.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": ">=1.0.0"
+  }
+}

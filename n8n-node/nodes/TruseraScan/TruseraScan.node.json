@@ -1,0 +1,17 @@
+{
+  "node": "n8n-nodes-trusera.truseraScan",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": ["AI", "Miscellaneous"],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://trusera.dev/docs/n8n"
+      }
+    ]
+  },
+  "alias": ["ai-bom", "security", "scan", "trusera", "ai", "risk"],
+  "subcategories": {
+    "AI": ["Security"]
+  }
+}

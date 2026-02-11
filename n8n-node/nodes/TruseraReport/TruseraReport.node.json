@@ -1,0 +1,17 @@
+{
+  "node": "n8n-nodes-trusera.truseraReport",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": ["AI", "Miscellaneous"],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://trusera.dev/docs/n8n"
+      }
+    ]
+  },
+  "alias": ["report", "security", "audit", "trusera", "ai-bom", "markdown"],
+  "subcategories": {
+    "AI": ["Security"]
+  }
+}

@@ -7,6 +7,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-02-11 (n8n Community Node)
+
+### Added
+- **Actionable Remediation Dashboard**: Per-flag risk descriptions, fix steps, and guardrail recommendations
+- **OWASP LLM Top 10 Mapping**: All 14 risk flags mapped to OWASP categories (LLM01-LLM10)
+- **Remediation Cards UI**: Modal shows severity-colored cards with description, remediation, guardrail, and OWASP tag
+- **Password-Protected Dashboard**: AES-256-GCM encrypted HTML with client-side decryption
+- **4 n8n Nodes**: Dashboard, Scanner, Policy, Report — all registered in npm package
+- **CSV OWASP Export**: CSV export includes OWASP categories column
+- **remediationMap.test.ts**: Validates all risk flags have complete remediation entries
+
+### Changed
+- Modal widened from 600px to 720px for remediation card readability
+- Workflow names display without `.json` suffix in dashboard
+- Package version bumped from 0.1.0 to 0.4.0
+- Added `workflow-security` keyword and `bugs` URL to package.json
+- Build script copies SVG/PNG icons to dist automatically
+- README updated with mascot image and n8n Community Node section
+
+## [3.0.0] - 2026-02-10
+
+### Added
+- **13 Scanners**: code, docker, network, cloud, n8n, jupyter, github-actions, model-files, mcp-config, ast, aws-live, gcp-live, azure-live
+- **9 Output Formats**: table, json/cyclonedx, sarif, spdx3, html, csv, junit, markdown
+- **Compliance Modules**: OWASP LLM Top 10 and EU AI Act risk mapping with `--compliance` flag
+- **OWASP Agentic Security Top 10**: Agent-specific risk assessment for n8n workflows and MCP configs
+- **Parallel Scanning**: `run_scanners_parallel()` with configurable thread pool for faster scans
+- **MCP Config Scanner**: Detects MCP server configurations in mcp.json, .mcp.json, claude_desktop_config.json, Cline and Cursor configs
+- **Model File Scanner**: Detects binary model files (.onnx, .pt, .safetensors, .gguf, .tflite, .mlmodel, .ggml)
+- **Live n8n API Integration**: `--n8n-url` and `--n8n-api-key` flags for scanning running n8n instances
+- **Live Cloud Scanners**: AWS (Bedrock, SageMaker), GCP (Vertex AI, Dialogflow), Azure (OpenAI, Cognitive Services, ML)
+- **AST Scanner**: Deep Python analysis via `--deep` flag (imports, decorators, function calls, string literals)
+- **CI/CD Policy Enforcement**: `--fail-on <severity>` and `--policy <file>` for gating builds
+- **SPDX 3.0 AI Profile**: EU AI Act compliant output with `--format spdx3`
+- **JUnit Reporter**: CI-friendly test report format with `--format junit`
+- **CSV Reporter**: Spreadsheet export with `--format csv`
+- **Scan Diffing**: Compare two scans to track AI component drift (`diff_reporter`)
+- **n8n Security Analysis**: Webhook auth checks, agent-tool risk combos, code injection patterns, agent chain detection
+- **Dashboard**: Interactive FastAPI + SQLite web dashboard (`ai-bom dashboard`)
+- **A2A Protocol Detection**: Agent-to-Agent protocol pattern matching
+- **CrewAI Flow Detection**: @crew, @agent, @task, @flow, @tool decorator scanning
+- **Latest Model Patterns**: GPT-4.5, o1/o3, Claude 4/4.5, Gemini 2.0, Llama 4, DeepSeek
+- **Deprecated Model Detection**: gpt-4-0314, gpt-4-0613, claude-2.1, claude-3-haiku-20240307
+- `--quiet` / `-q` flag for CI-friendly output
+- License compliance checking module
+- 651 tests with full scanner and reporter coverage
+
+### Changed
+- Bumped version from 0.1.0 to 3.0.0 (reflects scope of scanner, reporter, and compliance additions)
+- README Quick Start recommends `pipx install ai-bom` (PEP 668 fix)
+- Added `requests>=2.28.0` to core dependencies
+- Reduced sdist size by excluding assets, demo-video, node_modules
+
 ## [2.0.0] - 2026-02-10
 
 ### Added
@@ -68,6 +121,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docker container distribution
 - Comprehensive test suite covering scanners and reporters
 
-[Unreleased]: https://github.com/trusera/ai-bom/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/trusera/ai-bom/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/trusera/ai-bom/compare/v3.0.0...v0.4.0
+[3.0.0]: https://github.com/trusera/ai-bom/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/trusera/ai-bom/compare/v0.1.0...v2.0.0
 [0.1.0]: https://github.com/trusera/ai-bom/releases/tag/v0.1.0
