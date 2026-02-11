@@ -244,7 +244,9 @@ class BaseScanner(ABC):
                     max_mb = self.max_file_size // (1024 * 1024)
                     logger.warning(
                         "Skipping large file (>%dMB): %s (%d bytes)",
-                        max_mb, root, file_size,
+                        max_mb,
+                        root,
+                        file_size,
                     )
                     return
             except OSError as e:
