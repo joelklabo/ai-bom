@@ -90,6 +90,23 @@ pipx install ai-bom
 
 </details>
 
+<details>
+<summary>Alternative: Run with Docker</summary>
+
+```bash
+docker run --rm -v $(pwd):/scan ghcr.io/trusera/ai-bom scan /scan
+
+# CycloneDX output
+docker run --rm -v $(pwd):/scan ghcr.io/trusera/ai-bom scan /scan -f cyclonedx -o /scan/ai-bom.cdx.json
+
+# JSON output piped to jq
+docker run --rm -v $(pwd):/scan ghcr.io/trusera/ai-bom scan /scan --json | jq '.components[] | select(.properties[]? | select(.name == "trusera:risk_score" and (.value | tonumber) > 7))'
+```
+
+The image is published to `ghcr.io/trusera/ai-bom` on every tagged release.
+
+</details>
+
 ## n8n Community Node
 
 Scan all your n8n workflows for AI security risks — directly inside n8n. One node, full dashboard.

@@ -62,6 +62,19 @@ class TestCycloneDXReporter:
             assert "trusera:risk_score" in prop_names
             assert "trusera:usage_type" in prop_names
 
+    def test_has_scan_summary_properties(self, multi_component_result):
+        reporter = CycloneDXReporter()
+        output = reporter.render(multi_component_result)
+        data = json.loads(output)
+        assert "properties" in data["metadata"]
+        prop_names = [p["name"] for p in data["metadata"]["properties"]]
+        assert "trusera:total_components" in prop_names
+        assert "trusera:critical_count" in prop_names
+        assert "trusera:high_count" in prop_names
+        assert "trusera:medium_count" in prop_names
+        assert "trusera:low_count" in prop_names
+        assert "trusera:scan_duration_seconds" in prop_names
+
 
 class TestHTMLReporter:
     def test_renders_html(self, multi_component_result):

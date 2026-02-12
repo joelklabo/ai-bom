@@ -229,6 +229,25 @@ class ScanResult(BaseModel):
 
             cdx_components.append(cdx_component)
 
+        # Build scan summary properties
+        scan_properties = [
+            {"name": "trusera:total_components", "value": str(self.summary.total_components)},
+            {
+                "name": "trusera:critical_count",
+                "value": str(self.summary.by_severity.get("critical", 0)),
+            },
+            {"name": "trusera:high_count", "value": str(self.summary.by_severity.get("high", 0))},
+            {
+                "name": "trusera:medium_count",
+                "value": str(self.summary.by_severity.get("medium", 0)),
+            },
+            {"name": "trusera:low_count", "value": str(self.summary.by_severity.get("low", 0))},
+            {
+                "name": "trusera:scan_duration_seconds",
+                "value": f"{self.summary.scan_duration_seconds:.2f}",
+            },
+        ]
+
         return {
             "bomFormat": "CycloneDX",
             "specVersion": "1.6",
@@ -249,6 +268,7 @@ class ScanResult(BaseModel):
                         }
                     ]
                 },
+                "properties": scan_properties,
             },
             "components": cdx_components,
         }

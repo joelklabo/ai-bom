@@ -308,8 +308,18 @@ def scan(
         "--max-file-size",
         help="Max file size in MB (default: 10). Increase for large models.",
     ),
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        "-j",
+        help="Output as JSON (shorthand for --format json)",
+    ),
 ) -> None:
     """Scan a directory or repository for AI/LLM components."""
+    # --json / -j overrides --format
+    if json_output:
+        format = "json"
+
     # Setup logging
     _setup_logging(verbose=verbose, debug=debug)
 

@@ -71,9 +71,14 @@ jobs:
   # ──────────────────────────────────────────────
   # Job 4: Policy gate — fail on high severity
   # ──────────────────────────────────────────────
+  # Note: This job intentionally uses continue-on-error because the ai-bom
+  # repo itself contains demo/test API keys (sk-demo*) that trigger
+  # the high-severity gate. In your own repo, remove continue-on-error
+  # to enforce the policy gate as a hard failure.
   policy-gate:
     name: Security policy gate
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
