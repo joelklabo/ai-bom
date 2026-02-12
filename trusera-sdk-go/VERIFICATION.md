@@ -129,10 +129,10 @@ $ go build ./...
 # Successful
 
 $ go test ./...
-ok      github.com/Trusera/trusera-sdk-go       0.559s
+ok      github.com/Trusera/ai-bom/trusera-sdk-go       0.559s
 
 $ go test -cover ./...
-ok      github.com/Trusera/trusera-sdk-go       0.559s  coverage: 85.4% of statements
+ok      github.com/Trusera/ai-bom/trusera-sdk-go       0.559s  coverage: 85.4% of statements
 ```
 
 ## Dependency Check ✓

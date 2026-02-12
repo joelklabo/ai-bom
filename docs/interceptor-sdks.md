@@ -6,8 +6,8 @@ single design philosophy: **intercept, evaluate, report**.
 
 | | Python | TypeScript | Go |
 |---|--------|------------|-----|
-| **Repository** | [trusera-agent-sdk](https://github.com/Trusera/trusera-agent-sdk) | [trusera-sdk-js](https://github.com/Trusera/trusera-sdk-js) | [trusera-sdk-go](https://github.com/Trusera/trusera-sdk-go) |
-| **Package** | `trusera-sdk` (PyPI) | `trusera-sdk` (npm) | `github.com/Trusera/trusera-sdk-go` |
+| **Repository** | [trusera-agent-sdk](https://github.com/Trusera/trusera-agent-sdk) | [trusera-sdk-js](https://github.com/Trusera/trusera-sdk-js) | [trusera-sdk-go](https://github.com/Trusera/ai-bom/trusera-sdk-go) |
+| **Package** | `trusera-sdk` (PyPI) | `trusera-sdk` (npm) | `github.com/Trusera/ai-bom/trusera-sdk-go` |
 | **License** | Apache 2.0 | Apache 2.0 | Apache 2.0 |
 
 ---
@@ -68,7 +68,7 @@ Choose the SDK that matches your agent's language:
 | Feature | Python | TypeScript | Go |
 |---------|--------|------------|-----|
 | **Package name** | `trusera-sdk` | `trusera-sdk` | `trusera-sdk-go` |
-| **Install command** | `pip install trusera-sdk` | `npm install trusera-sdk` | `go get github.com/Trusera/trusera-sdk-go` |
+| **Install command** | `pip install trusera-sdk` | `npm install trusera-sdk` | `go get github.com/Trusera/ai-bom/trusera-sdk-go` |
 | **HTTP Interception** | `@monitor` decorator | `fetch` monkey-patch | `http.RoundTripper` wrapper |
 | **LangChain Integration** | `TruseraCallbackHandler` | `TruseraLangChainHandler` | -- |
 | **CrewAI Integration** | `TruseraCrewCallback` (StepCallback) | -- | -- |
@@ -212,7 +212,7 @@ package main
 
 import (
     "net/http"
-    "github.com/Trusera/trusera-sdk-go"
+    "github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {
@@ -551,7 +551,7 @@ package main
 import (
     "fmt"
     "net/http"
-    "github.com/Trusera/trusera-sdk-go"
+    "github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {
@@ -1202,7 +1202,7 @@ regardless of which SDK generated them.
 - [Cedar Policy Language](https://www.cedarpolicy.com)
 - [Python SDK Reference](https://docs.trusera.io/sdk/python)
 - [TypeScript SDK Reference](https://docs.trusera.io/sdk/typescript)
-- [Go SDK Reference](https://pkg.go.dev/github.com/Trusera/trusera-sdk-go)
+- [Go SDK Reference](https://pkg.go.dev/github.com/Trusera/ai-bom/trusera-sdk-go)
 - [AI-BOM Scanner](https://github.com/Trusera/ai-bom)
 
 ---

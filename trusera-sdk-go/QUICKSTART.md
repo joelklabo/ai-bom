@@ -5,7 +5,7 @@ Get started with the Trusera Go SDK in 5 minutes.
 ## Installation
 
 ```bash
-go get github.com/Trusera/trusera-sdk-go
+go get github.com/Trusera/ai-bom/trusera-sdk-go
 ```
 
 ## Your First Trusera Agent
@@ -19,7 +19,7 @@ import (
     "fmt"
     "net/http"
 
-    "github.com/Trusera/trusera-sdk-go"
+    "github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {
@@ -61,7 +61,7 @@ import (
     "fmt"
     "net/http"
 
-    "github.com/Trusera/trusera-sdk-go"
+    "github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {
@@ -92,7 +92,7 @@ package main
 
 import (
     "fmt"
-    "github.com/Trusera/trusera-sdk-go"
+    "github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {
@@ -136,5 +136,5 @@ func main() {
 ## Support
 
 - Documentation: https://docs.trusera.io
-- Issues: https://github.com/Trusera/trusera-sdk-go/issues
+- Issues: https://github.com/Trusera/ai-bom/trusera-sdk-go/issues
 - Discord: https://discord.gg/trusera

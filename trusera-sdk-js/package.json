@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Trusera/trusera-sdk-js"
+    "url": "https://github.com/Trusera/ai-bom"
   },
   "keywords": [
     "ai",

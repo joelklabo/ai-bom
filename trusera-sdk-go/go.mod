@@ -1,3 +1,3 @@
-module github.com/Trusera/trusera-sdk-go
+module github.com/Trusera/ai-bom/trusera-sdk-go
 
 go 1.21

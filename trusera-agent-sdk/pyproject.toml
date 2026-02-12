@@ -33,7 +33,7 @@ dev = ["pytest>=7.0", "pytest-asyncio>=0.21", "ruff>=0.1.0", "mypy>=1.0"]
 
 [project.urls]
 Homepage = "https://trusera.dev"
-Repository = "https://github.com/Trusera/trusera-agent-sdk"
+Repository = "https://github.com/Trusera/ai-bom"
 Documentation = "https://docs.trusera.dev/sdk/python"
 
 [tool.ruff]

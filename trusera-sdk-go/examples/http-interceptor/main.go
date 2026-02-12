@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Trusera/trusera-sdk-go"
+	"github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {

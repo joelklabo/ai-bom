@@ -91,7 +91,7 @@ HTTP interception logic:
 
 ### go.mod
 ```
-module github.com/Trusera/trusera-sdk-go
+module github.com/Trusera/ai-bom/trusera-sdk-go
 go 1.21
 ```
 Zero external dependencies.
@@ -218,7 +218,7 @@ httpClient.Get("https://api.example.com")
 
 ## Next Steps
 
-1. Publish to GitHub: `github.com/Trusera/trusera-sdk-go`
+1. Publish to GitHub: `github.com/Trusera/ai-bom/trusera-sdk-go`
 2. Tag v0.1.0 release
 3. Submit to pkg.go.dev
 4. Add to Trusera docs

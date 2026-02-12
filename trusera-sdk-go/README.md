@@ -2,8 +2,8 @@
 
 Go SDK for monitoring AI agents with Trusera's Cedar-based policy engine.
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/Trusera/trusera-sdk-go.svg)](https://pkg.go.dev/github.com/Trusera/trusera-sdk-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/Trusera/trusera-sdk-go)](https://goreportcard.com/report/github.com/Trusera/trusera-sdk-go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/Trusera/ai-bom/trusera-sdk-go.svg)](https://pkg.go.dev/github.com/Trusera/ai-bom/trusera-sdk-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Trusera/ai-bom/trusera-sdk-go)](https://goreportcard.com/report/github.com/Trusera/ai-bom/trusera-sdk-go)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 ## Features
@@ -18,7 +18,7 @@ Go SDK for monitoring AI agents with Trusera's Cedar-based policy engine.
 ## Installation
 
 ```bash
-go get github.com/Trusera/trusera-sdk-go
+go get github.com/Trusera/ai-bom/trusera-sdk-go
 ```
 
 ## Quickstart
@@ -30,7 +30,7 @@ import (
     "fmt"
     "net/http"
 
-    "github.com/Trusera/trusera-sdk-go"
+    "github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {
@@ -63,7 +63,7 @@ package main
 
 import (
     "net/http"
-    "github.com/Trusera/trusera-sdk-go"
+    "github.com/Trusera/ai-bom/trusera-sdk-go"
 )
 
 func main() {
@@ -309,5 +309,5 @@ Apache 2.0 - See [LICENSE](LICENSE) for details.
 
 - [Trusera Platform](https://trusera.io)
 - [Documentation](https://docs.trusera.io)
-- [API Reference](https://pkg.go.dev/github.com/Trusera/trusera-sdk-go)
-- [Go SDK Repository](https://github.com/Trusera/trusera-sdk-go)
+- [API Reference](https://pkg.go.dev/github.com/Trusera/ai-bom/trusera-sdk-go)
+- [Go SDK Repository](https://github.com/Trusera/ai-bom/trusera-sdk-go)
