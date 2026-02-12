@@ -26,6 +26,7 @@ export class TruseraWebhook implements INodeType {
         httpMethod: 'GET',
         responseMode: 'lastNode',
         path: 'trusera',
+        isFullPath: true,
       },
     ],
     properties: [],
