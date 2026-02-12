@@ -3,7 +3,7 @@
  * Ported from the Python n8n_scanner.py.
  */
 
-import { N8N_AI_NODE_TYPES, API_KEY_PATTERNS, DANGEROUS_CODE_PATTERNS } from './config';
+import { N8N_AI_NODE_TYPES, API_KEY_PATTERNS, DANGEROUS_CODE_PATTERNS, DEPRECATED_MODELS } from './config';
 import {
   AIComponent,
   ComponentType,
@@ -186,6 +186,7 @@ type ComponentMapping = [ComponentType, UsageType, string];
 function mapNodeType(nodeType: string): ComponentMapping | null {
   if (nodeType.includes('.agent')) return [ComponentType.AgentFramework, UsageType.Agent, 'n8n'];
 
+  if (nodeType.includes('.openAi') && !nodeType.includes('.lmChat')) return [ComponentType.LlmProvider, UsageType.Completion, 'OpenAI'];
   if (nodeType.includes('.lmChatOpenAi')) return [ComponentType.LlmProvider, UsageType.Completion, 'OpenAI'];
   if (nodeType.includes('.lmChatAnthropic')) return [ComponentType.LlmProvider, UsageType.Completion, 'Anthropic'];
   if (nodeType.includes('.lmChatGoogleGemini')) return [ComponentType.LlmProvider, UsageType.Completion, 'Google'];
@@ -540,16 +541,65 @@ function checkAgentChainRisks(
   }
 }
 
+/** Known base model names without version pins. */
+const UNPINNED_MODEL_NAMES = new Set([
+  'gpt-4', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', 'gpt-3.5-turbo',
+  'claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku',
+  'claude-3.5-sonnet', 'claude-3.5-haiku',
+  'gemini-pro', 'gemini-1.5-pro', 'gemini-1.5-flash',
+  'mistral-large', 'mistral-medium', 'mistral-small',
+  'command-r', 'command-r-plus',
+  'llama-3.1-70b', 'llama-3.1-8b',
+]);
+
+function checkUnpinnedModel(component: AIComponent): void {
+  const model = component.modelName;
+  if (!model) {
+    if (component.type === ComponentType.LlmProvider) {
+      component.flags.push('unpinned_model');
+    }
+    return;
+  }
+  if (UNPINNED_MODEL_NAMES.has(model)) {
+    component.flags.push('unpinned_model');
+  }
+}
+
+function hasErrorHandling(workflow: N8nWorkflowData): boolean {
+  const settings = workflow['settings'] as Record<string, unknown> | undefined;
+  if (settings && typeof settings['errorWorkflow'] === 'string' && settings['errorWorkflow']) {
+    return true;
+  }
+  for (const node of workflow.nodes ?? []) {
+    const nodeType = (node.type ?? '').toLowerCase();
+    if (nodeType.includes('errortrigger') || nodeType.includes('error')) {
+      return true;
+    }
+    if (node['onError'] && node['onError'] !== 'stopWorkflow') {
+      return true;
+    }
+  }
+  return false;
+}
+
 function applyWorkflowRisks(workflow: N8nWorkflowData, components: AIComponent[]): void {
   const nodes = workflow.nodes ?? [];
   const connections = workflow.connections ?? {};
 
   if (hasInsecureWebhook(nodes)) {
     for (const component of components) {
-      if (component.type === ComponentType.AgentFramework) {
-        component.flags.push('webhook_no_auth');
-      }
+      component.flags.push('webhook_no_auth');
     }
+  }
+
+  if (!hasErrorHandling(workflow)) {
+    for (const component of components) {
+      component.flags.push('no_error_handling');
+    }
+  }
+
+  for (const component of components) {
+    checkUnpinnedModel(component);
   }
 
   checkAgentToolRisks(nodes, connections, components);
