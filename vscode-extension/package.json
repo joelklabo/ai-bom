@@ -1,0 +1,193 @@
+{
+  "name": "ai-bom-scanner",
+  "displayName": "AI-BOM Security Scanner",
+  "description": "Scan your codebase for AI/ML security risks directly from VS Code",
+  "version": "0.1.0",
+  "publisher": "trusera",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Security",
+    "Testing",
+    "Linters"
+  ],
+  "keywords": [
+    "ai",
+    "security",
+    "llm",
+    "scanner",
+    "ai-bom",
+    "trusera"
+  ],
+  "activationEvents": [
+    "onCommand:ai-bom.scanWorkspace",
+    "onCommand:ai-bom.scanFile",
+    "onCommand:ai-bom.showResults",
+    "onLanguage:python",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:yaml",
+    "onLanguage:json",
+    "onLanguage:dockerfile"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-bom.scanWorkspace",
+        "title": "AI-BOM: Scan Workspace",
+        "icon": "$(search)"
+      },
+      {
+        "command": "ai-bom.scanFile",
+        "title": "AI-BOM: Scan Current File",
+        "icon": "$(file)"
+      },
+      {
+        "command": "ai-bom.showResults",
+        "title": "AI-BOM: Show Results",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "ai-bom.clearResults",
+        "title": "AI-BOM: Clear Results",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "ai-bom.installScanner",
+        "title": "AI-BOM: Install Scanner",
+        "icon": "$(cloud-download)"
+      }
+    ],
+    "configuration": {
+      "title": "AI-BOM Scanner",
+      "properties": {
+        "ai-bom.pythonPath": {
+          "type": "string",
+          "default": "python3",
+          "description": "Path to Python interpreter (e.g., python3, /usr/bin/python3, or path to venv)"
+        },
+        "ai-bom.scanOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically scan files on save"
+        },
+        "ai-bom.severityThreshold": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "default": "low",
+          "description": "Minimum severity level to display"
+        },
+        "ai-bom.deepScan": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable deep AST-based analysis (slower but more thorough)"
+        },
+        "ai-bom.showInlineDecorations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inline risk score decorations in the editor"
+        },
+        "ai-bom.autoInstall": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically offer to install ai-bom if not found"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ai-bom-explorer",
+          "title": "AI-BOM Scanner",
+          "icon": "$(shield)"
+        }
+      ]
+    },
+    "views": {
+      "ai-bom-explorer": [
+        {
+          "id": "ai-bom-results",
+          "name": "Scan Results"
+        },
+        {
+          "id": "ai-bom-summary",
+          "name": "Summary"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "ai-bom.scanWorkspace",
+          "when": "view == ai-bom-results",
+          "group": "navigation"
+        },
+        {
+          "command": "ai-bom.clearResults",
+          "when": "view == ai-bom-results",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "ai-bom.scanFile",
+          "when": "!explorerResourceIsFolder",
+          "group": "ai-bom"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ai-bom.scanFile",
+          "group": "ai-bom"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "ai-bom.scanWorkspace"
+        },
+        {
+          "command": "ai-bom.scanFile"
+        },
+        {
+          "command": "ai-bom.showResults"
+        },
+        {
+          "command": "ai-bom.clearResults"
+        },
+        {
+          "command": "ai-bom.installScanner"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Trusera/ai-bom.git"
+  },
+  "homepage": "https://trusera.dev",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Trusera/ai-bom/issues"
+  }
+}

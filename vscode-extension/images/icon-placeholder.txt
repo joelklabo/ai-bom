@@ -1,0 +1,15 @@
+Icon placeholder - Replace with actual 128x128px PNG icon
+
+The extension icon should be:
+- 128x128 pixels
+- PNG format
+- Named "icon.png"
+- Place in this directory
+
+You can use the Trusera logo or create a custom AI-BOM icon.
+The icon will be displayed in:
+- VS Code Extensions sidebar
+- Marketplace listing
+- Extension details page
+
+Recommended: Use the shield icon with AI/security theme
