@@ -6,6 +6,7 @@
 /** Set of n8n node types that involve AI capabilities. */
 export const N8N_AI_NODE_TYPES: ReadonlySet<string> = new Set([
   '@n8n/n8n-nodes-langchain.agent',
+  '@n8n/n8n-nodes-langchain.openAi',
   '@n8n/n8n-nodes-langchain.lmChatOpenAi',
   '@n8n/n8n-nodes-langchain.lmChatAnthropic',
   '@n8n/n8n-nodes-langchain.lmChatGoogleGemini',
