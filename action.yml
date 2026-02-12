@@ -1,5 +1,5 @@
 name: "AI-BOM Scan"
-description: "Discover and inventory AI/LLM components in your codebase"
+description: "Discover and inventory AI/LLM agents, models, and API integrations in your codebase. Generates SBOM-style reports in CycloneDX, SARIF, SPDX, and more."
 author: "Trusera"
 
 # Required permissions in calling workflow:
@@ -13,37 +13,25 @@ branding:
 
 inputs:
   path:
-    description: "Path to scan"
+    description: "Directory to scan"
     required: false
     default: "."
   format:
-    description: "Output format (sarif, json, cyclonedx, table, markdown)"
+    description: "Output format (cyclonedx, sarif, spdx, table, html, markdown, csv)"
     required: false
-    default: "sarif"
-  severity:
-    description: "Minimum severity to report (critical, high, medium, low)"
-    required: false
-    default: ""
+    default: "table"
   output:
-    description: "Output file path"
+    description: "Output file path (optional — prints to stdout if not set)"
     required: false
-    default: "ai-bom-results.sarif"
-  upload-sarif:
-    description: "Upload SARIF results to GitHub Code Scanning"
-    required: false
-    default: "true"
+    default: ""
   fail-on:
-    description: "Fail if any component meets or exceeds severity (critical, high, medium, low)"
+    description: "Fail the pipeline if any component meets or exceeds this severity (critical, high, medium, low)"
     required: false
     default: ""
-  policy-file:
-    description: "Path to YAML policy file for enforcement"
+  scan-level:
+    description: "Scanning depth: quick (pattern-matching only), standard (all scanners), deep (standard + AST analysis)"
     required: false
-    default: ""
-  python-version:
-    description: "Python version to use"
-    required: false
-    default: "3.12"
+    default: "standard"
 
 runs:
   using: "composite"
@@ -51,31 +39,44 @@ runs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ inputs.python-version }}
-        cache: 'pip'
+        python-version: "3.12"
+        cache: "pip"
 
     - name: Install ai-bom
       shell: bash
       run: pip install ai-bom
 
     - name: Run ai-bom scan
+      id: scan
       shell: bash
-      continue-on-error: true  # Scan findings should not fail the workflow
       run: |
-        ARGS="scan ${{ inputs.path }} --format ${{ inputs.format }} -o ${{ inputs.output }} --quiet"
-        if [ -n "${{ inputs.severity }}" ]; then
-          ARGS="$ARGS --severity ${{ inputs.severity }}"
+        # Build the base command
+        ARGS="scan ${{ inputs.path }} --format ${{ inputs.format }} --quiet"
+
+        # Output file
+        if [ -n "${{ inputs.output }}" ]; then
+          ARGS="$ARGS -o ${{ inputs.output }}"
+        elif [ "${{ inputs.format }}" = "sarif" ]; then
+          # Default SARIF output path for upload step
+          ARGS="$ARGS -o ai-bom-results.sarif"
+          echo "sarif_file=ai-bom-results.sarif" >> "$GITHUB_OUTPUT"
         fi
+
+        # Scan level
+        if [ "${{ inputs.scan-level }}" = "deep" ]; then
+          ARGS="$ARGS --deep"
+        fi
+
+        # Fail-on severity threshold
         if [ -n "${{ inputs.fail-on }}" ]; then
           ARGS="$ARGS --fail-on ${{ inputs.fail-on }}"
         fi
-        if [ -n "${{ inputs.policy-file }}" ]; then
-          ARGS="$ARGS --policy ${{ inputs.policy-file }}"
-        fi
+
+        echo "Running: ai-bom $ARGS"
         ai-bom $ARGS
 
     - name: Upload SARIF to GitHub Code Scanning
-      if: ${{ inputs.upload-sarif == 'true' && inputs.format == 'sarif' }}
+      if: ${{ inputs.format == 'sarif' && (steps.scan.outputs.sarif_file != '' || inputs.output != '') }}
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: ${{ inputs.output }}
+        sarif_file: ${{ steps.scan.outputs.sarif_file || inputs.output }}
