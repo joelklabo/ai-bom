@@ -25,18 +25,9 @@ export class DecorationManager {
       low: 'rgba(100, 149, 237, 0.3)'
     };
 
-    const gutterIcons: Record<Severity, string> = {
-      critical: 'error',
-      high: 'warning',
-      medium: 'info',
-      low: 'circle-outline'
-    };
-
     return vscode.window.createTextEditorDecorationType({
       backgroundColor: colors[severity],
       isWholeLine: false,
-      gutterIconPath: new vscode.ThemeIcon(gutterIcons[severity]),
-      gutterIconSize: 'contain',
       overviewRulerColor: colors[severity],
       overviewRulerLane: vscode.OverviewRulerLane.Right
     });

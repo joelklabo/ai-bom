@@ -7,6 +7,7 @@ import os
 import shutil
 import sys
 import tempfile
+import threading
 import time
 from pathlib import Path
 from typing import Any, Optional
@@ -37,6 +38,40 @@ app = typer.Typer(
 
 console = Console()
 logger = logging.getLogger("ai_bom")
+
+
+def _send_telemetry(result: "ScanResult", scan_type: str) -> None:
+    """Send anonymous telemetry data if opted in via AI_BOM_TELEMETRY=true.
+
+    Non-blocking: runs in a background thread. Fails silently on any error.
+    No PII is collected — only aggregate scan statistics.
+    """
+    if os.environ.get("AI_BOM_TELEMETRY", "").lower() != "true":
+        return
+
+    def _post() -> None:
+        try:
+            import urllib.request
+
+            payload = json.dumps({
+                "scan_type": scan_type,
+                "component_counts": dict(result.summary.by_type),
+                "severity_counts": dict(result.summary.by_severity),
+                "scanner_version": result.ai_bom_version,
+                "timestamp": result.scan_timestamp,
+            }).encode("utf-8")
+
+            req = urllib.request.Request(
+                "https://api.trusera.dev/api/v1/telemetry",
+                data=payload,
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            urllib.request.urlopen(req, timeout=5)  # noqa: S310
+        except Exception:
+            pass  # Never crash the CLI due to telemetry
+
+    threading.Thread(target=_post, daemon=True).start()
 
 
 def _setup_logging(verbose: bool = False, debug: bool = False) -> None:
@@ -535,6 +570,15 @@ def scan(
         # Save to dashboard database if requested
         if save_dashboard:
             _save_to_dashboard(result, end_time - start_time, quiet=quiet)
+
+        # Send anonymous telemetry (opt-in only, non-blocking)
+        if target.startswith(("http://", "https://", "git@")):
+            _scan_type = "repo"
+        elif scan_path.is_file():
+            _scan_type = "file"
+        else:
+            _scan_type = "dir"
+        _send_telemetry(result, _scan_type)
 
         # --- Policy enforcement ---
         exit_code = 0

@@ -32,6 +32,18 @@ inputs:
     description: "Scanning depth: quick (pattern-matching only), standard (all scanners), deep (standard + AST analysis)"
     required: false
     default: "standard"
+  cedar-policy-file:
+    description: "Path to a Cedar policy file for policy evaluation (optional)"
+    required: false
+    default: ""
+  cedar-entities-file:
+    description: "Path to a Cedar entities file for additional entity context (optional)"
+    required: false
+    default: ""
+  policy-gate:
+    description: "Enable Cedar policy gate evaluation (requires cedar-policy-file)"
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -80,3 +92,34 @@ runs:
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: ${{ steps.scan.outputs.sarif_file || inputs.output }}
+
+    # ── Cedar Policy Gate ───────────────────────────
+    - name: Generate JSON for policy evaluation
+      id: policy-scan
+      if: ${{ inputs.policy-gate == 'true' && inputs.cedar-policy-file != '' }}
+      shell: bash
+      run: |
+        echo "Running supplementary JSON scan for Cedar policy evaluation..."
+        ARGS="scan ${{ inputs.path }} --format json --quiet -o ai-bom-policy-results.json"
+
+        if [ "${{ inputs.scan-level }}" = "deep" ]; then
+          ARGS="$ARGS --deep"
+        fi
+
+        ai-bom $ARGS
+        echo "policy_results=ai-bom-policy-results.json" >> "$GITHUB_OUTPUT"
+
+    - name: Evaluate Cedar policy gate
+      if: ${{ inputs.policy-gate == 'true' && inputs.cedar-policy-file != '' }}
+      shell: bash
+      run: |
+        echo "Evaluating Cedar policy: ${{ inputs.cedar-policy-file }}"
+
+        GATE_ARGS="${{ steps.policy-scan.outputs.policy_results }} ${{ inputs.cedar-policy-file }}"
+
+        # Write violations to GitHub Actions job summary
+        if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+          GATE_ARGS="$GATE_ARGS --summary $GITHUB_STEP_SUMMARY"
+        fi
+
+        python3 "${{ github.action_path }}/scripts/cedar-gate.py" $GATE_ARGS

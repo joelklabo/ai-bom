@@ -4,7 +4,6 @@
  */
 
 import * as vscode from 'vscode';
-import * as path from 'path';
 import { AIBOMScanner } from './scanner';
 import { ResultTreeProvider, SummaryTreeProvider } from './resultProvider';
 import { DecorationManager } from './decorations';
