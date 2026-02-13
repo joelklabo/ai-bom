@@ -9,9 +9,9 @@
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Security",
     "Testing",
-    "Linters"
+    "Linters",
+    "Other"
   ],
   "keywords": [
     "ai",
