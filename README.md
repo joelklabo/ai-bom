@@ -16,7 +16,7 @@
     <img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" />
     <img src="https://img.shields.io/badge/CycloneDX-1.6-green.svg" alt="CycloneDX 1.6" />
     <img src="https://img.shields.io/badge/tests-651%20passing-brightgreen.svg" alt="Tests" />
-    <img src="https://img.shields.io/badge/coverage-81%25-brightgreen.svg" alt="Coverage" />
+    <a href="https://codecov.io/gh/Trusera/ai-bom"><img src="https://codecov.io/gh/Trusera/ai-bom/graph/badge.svg" alt="Coverage" /></a>
     <img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" />
   </p>
   <h2 align="center">🎬 Demo</h2>
