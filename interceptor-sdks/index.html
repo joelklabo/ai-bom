@@ -1,0 +1,3850 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Bill of Materials — discover and inventory all AI/LLM components">
+      
+      
+      
+        <link rel="canonical" href="https://trusera.github.io/ai-bom/interceptor-sdks/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Universal Interceptor SDKs - AI-BOM Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#universal-interceptor-sdks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AI-BOM Documentation" class="md-header__button md-logo" aria-label="AI-BOM Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI-BOM Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Universal Interceptor SDKs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trusera/ai-bom" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trusera/ai-bom
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AI-BOM Documentation" class="md-nav__button md-logo" aria-label="AI-BOM Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI-BOM Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trusera/ai-bom" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trusera/ai-bom
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanners
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scanners
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/code.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/docker.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/network.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/cloud.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/n8n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    n8n Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/jupyter.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jupyter Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/github-actions.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub Actions Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/model-files.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model File Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/mcp-config.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Config Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/ast.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AST Scanner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Output Formats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Output Formats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/table.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/cyclonedx.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CycloneDX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/sarif.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SARIF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/spdx3.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SPDX 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/html.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/csv.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/junit.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JUnit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs/markdown.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy Enforcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Compliance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance/owasp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OWASP Agentic Top 10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance/eu-ai-act/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EU AI Act
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-feature-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Feature Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interception-mechanisms-by-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interception Mechanisms by Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Go
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-integration-guides-for-top-10-agent-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Integration Guides for Top 10 Agent Frameworks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Integration Guides for Top 10 Agent Frameworks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-langchain-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 LangChain (Python)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-langchainjs-nodejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 LangChain.js (Node.js)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-crewai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 CrewAI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-autogen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 AutoGen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-llamaindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 LlamaIndex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-semantic-kernel-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Semantic Kernel (Python)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-openai-agents-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 OpenAI Agents SDK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.7 OpenAI Agents SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-vercel-ai-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 Vercel AI SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59-custom-go-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.9 Custom Go Agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#510-custom-python-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.10 Custom Python Agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-enforcement-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Enforcement Modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Enforcement Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-log-mode-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Log Mode (Default)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 Log Mode (Default)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Go
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-warn-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Warn Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Warn Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Go
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-block-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Block Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 Block Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Go
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enforcement-mode-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enforcement Mode Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-event-types-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Event Types Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Event Types Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-tool_call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 TOOL_CALL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-llm_invoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 LLM_INVOKE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-data_access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 DATA_ACCESS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-api_call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 API_CALL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-file_write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 FILE_WRITE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 DECISION
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-configuration-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Configuration Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Configuration Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-programmatic-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Programmatic Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Programmatic Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#go_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Go
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-non-blocking-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Non-Blocking by Default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-overhead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Overhead
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-batching-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Batching Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-failure-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Failure Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-memory-footprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 Memory Footprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-migration-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Migration Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Migration Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-python-to-typescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Python to TypeScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-python-to-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Python to Go
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-typescript-to-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 TypeScript to Go
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-shared-agent-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Shared Agent Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="universal-interceptor-sdks">Universal Interceptor SDKs<a class="headerlink" href="#universal-interceptor-sdks" title="Permanent link">&para;</a></h1>
+<p>Monitor every AI agent, enforce Cedar policies at runtime, and gain full observability --
+regardless of language or framework. Trusera ships three open-source SDKs that share a
+single design philosophy: <strong>intercept, evaluate, report</strong>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Python</th>
+<th>TypeScript</th>
+<th>Go</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Repository</strong></td>
+<td><a href="https://github.com/Trusera/trusera-agent-sdk">trusera-agent-sdk</a></td>
+<td><a href="https://github.com/Trusera/trusera-sdk-js">trusera-sdk-js</a></td>
+<td><a href="https://github.com/Trusera/ai-bom/trusera-sdk-go">trusera-sdk-go</a></td>
+</tr>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>trusera-sdk</code> (PyPI)</td>
+<td><code>trusera-sdk</code> (npm)</td>
+<td><code>github.com/Trusera/ai-bom/trusera-sdk-go</code></td>
+</tr>
+<tr>
+<td><strong>License</strong></td>
+<td>Apache 2.0</td>
+<td>Apache 2.0</td>
+<td>Apache 2.0</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#1-overview">Overview</a></li>
+<li><a href="#2-feature-comparison">Feature Comparison</a></li>
+<li><a href="#3-architecture">Architecture</a></li>
+<li><a href="#4-quick-start">Quick Start</a></li>
+<li><a href="#5-integration-guides-for-top-10-agent-frameworks">Integration Guides for Top 10 Agent Frameworks</a></li>
+<li><a href="#6-enforcement-modes">Enforcement Modes</a></li>
+<li><a href="#7-event-types-reference">Event Types Reference</a></li>
+<li><a href="#8-configuration-reference">Configuration Reference</a></li>
+<li><a href="#9-performance">Performance</a></li>
+<li><a href="#10-migration-guide">Migration Guide</a></li>
+</ol>
+<hr />
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>AI agents make autonomous decisions -- calling LLMs, invoking tools, reading databases,
+and hitting third-party APIs. Without observability, you are flying blind. Without
+enforcement, you have no guardrails.</p>
+<p>The <strong>Trusera Interceptor SDK family</strong> solves both problems:</p>
+<ul>
+<li><strong>Intercept</strong> every outbound call your agent makes (HTTP requests, LLM invocations,
+  tool calls, file writes, data access, and decision points).</li>
+<li><strong>Evaluate</strong> each action against Cedar policies -- the same policy language used by
+  AWS Verified Permissions -- in real time.</li>
+<li><strong>Report</strong> a structured event stream to the Trusera platform for dashboards, alerts,
+  compliance audits, and forensic analysis.</li>
+</ul>
+<p>All three SDKs are designed around the same core concepts:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Client</strong></td>
+<td>Authenticated connection to the Trusera API. Handles batching and flushing.</td>
+</tr>
+<tr>
+<td><strong>Interceptor</strong></td>
+<td>Language-specific hook that transparently captures outbound calls.</td>
+</tr>
+<tr>
+<td><strong>Event</strong></td>
+<td>A structured record of a single agent action (tool call, LLM invoke, etc.).</td>
+</tr>
+<tr>
+<td><strong>Enforcement Mode</strong></td>
+<td>How policy violations are handled: <code>log</code>, <code>warn</code>, or <code>block</code>.</td>
+</tr>
+<tr>
+<td><strong>Agent Registration</strong></td>
+<td>One-time registration that ties events to a named agent identity.</td>
+</tr>
+</tbody>
+</table>
+<p>Choose the SDK that matches your agent's language:</p>
+<ul>
+<li><strong>Python SDK</strong> -- Best for LangChain, CrewAI, AutoGen, LlamaIndex, Semantic Kernel,
+  and any Python-based agent.</li>
+<li><strong>TypeScript SDK</strong> -- Best for LangChain.js, Vercel AI SDK, OpenAI Node.js SDK,
+  and any Node.js/Bun agent.</li>
+<li><strong>Go SDK</strong> -- Best for custom Go agents, microservices, and high-performance
+  infrastructure agents.</li>
+</ul>
+<hr />
+<h2 id="2-feature-comparison">2. Feature Comparison<a class="headerlink" href="#2-feature-comparison" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Python</th>
+<th>TypeScript</th>
+<th>Go</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package name</strong></td>
+<td><code>trusera-sdk</code></td>
+<td><code>trusera-sdk</code></td>
+<td><code>trusera-sdk-go</code></td>
+</tr>
+<tr>
+<td><strong>Install command</strong></td>
+<td><code>pip install trusera-sdk</code></td>
+<td><code>npm install trusera-sdk</code></td>
+<td><code>go get github.com/Trusera/ai-bom/trusera-sdk-go</code></td>
+</tr>
+<tr>
+<td><strong>HTTP Interception</strong></td>
+<td><code>@monitor</code> decorator</td>
+<td><code>fetch</code> monkey-patch</td>
+<td><code>http.RoundTripper</code> wrapper</td>
+</tr>
+<tr>
+<td><strong>LangChain Integration</strong></td>
+<td><code>TruseraCallbackHandler</code></td>
+<td><code>TruseraLangChainHandler</code></td>
+<td>--</td>
+</tr>
+<tr>
+<td><strong>CrewAI Integration</strong></td>
+<td><code>TruseraCrewCallback</code> (StepCallback)</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<td><strong>AutoGen Integration</strong></td>
+<td><code>TruseraAutoGenHook</code> (MessageHook)</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<td><strong>Enforcement Modes</strong></td>
+<td><code>log</code> / <code>warn</code> / <code>block</code></td>
+<td><code>log</code> / <code>warn</code> / <code>block</code></td>
+<td><code>log</code> / <code>warn</code> / <code>block</code></td>
+</tr>
+<tr>
+<td><strong>Event Batching</strong></td>
+<td>Thread-based queue</td>
+<td>Timer-based queue</td>
+<td>Goroutine-based queue</td>
+</tr>
+<tr>
+<td><strong>Async Support</strong></td>
+<td><code>asyncio</code> native</td>
+<td>Native <code>Promise</code> / <code>async-await</code></td>
+<td>Goroutines</td>
+</tr>
+<tr>
+<td><strong>External Dependencies</strong></td>
+<td><code>httpx</code></td>
+<td>None (native <code>fetch</code>)</td>
+<td>None (stdlib only)</td>
+</tr>
+<tr>
+<td><strong>Min Runtime</strong></td>
+<td>Python 3.9+</td>
+<td>Node.js 18+</td>
+<td>Go 1.21+</td>
+</tr>
+<tr>
+<td><strong>Type Safety</strong></td>
+<td>Type hints (mypy)</td>
+<td>Full TypeScript generics</td>
+<td>Static typing</td>
+</tr>
+<tr>
+<td><strong>Context Manager</strong></td>
+<td><code>with</code> statement</td>
+<td>--</td>
+<td><code>defer client.Close()</code></td>
+</tr>
+<tr>
+<td><strong>Global Intercept</strong></td>
+<td><code>set_default_client()</code></td>
+<td><code>interceptor.install()</code></td>
+<td><code>trusera.InterceptDefault()</code></td>
+</tr>
+<tr>
+<td><strong>Exclude Patterns</strong></td>
+<td>--</td>
+<td>Regex patterns</td>
+<td>String patterns</td>
+</tr>
+<tr>
+<td><strong>Block Patterns</strong></td>
+<td>--</td>
+<td>--</td>
+<td>String patterns</td>
+</tr>
+<tr>
+<td><strong>Agent Registration</strong></td>
+<td><code>client.register_agent()</code></td>
+<td><code>client.registerAgent()</code></td>
+<td><code>client.RegisterAgent()</code></td>
+</tr>
+<tr>
+<td><strong>Manual Flush</strong></td>
+<td><code>client.flush()</code></td>
+<td><code>await client.flush()</code></td>
+<td><code>client.Flush()</code></td>
+</tr>
+<tr>
+<td><strong>Graceful Shutdown</strong></td>
+<td><code>client.close()</code></td>
+<td><code>await client.close()</code></td>
+<td><code>client.Close()</code></td>
+</tr>
+<tr>
+<td><strong>Thread/Concurrency Safe</strong></td>
+<td>Yes (threading lock)</td>
+<td>Yes (single-threaded + async)</td>
+<td>Yes (mutex + goroutines)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-architecture">3. Architecture<a class="headerlink" href="#3-architecture" title="Permanent link">&para;</a></h2>
+<p>All three SDKs follow the same layered architecture. The interceptor sits between
+your agent code and the outside world, capturing events and optionally enforcing
+Cedar policies before requests leave the process.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>                        Your Application
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                 ┌─────────────────────────────┐
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                 │                             │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                 │   ┌───────────────────┐     │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                 │   │   AI Agent Code   │     │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                 │   │  (LangChain,      │     │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                 │   │   CrewAI, custom)  │     │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                 │   └────────┬──────────┘     │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                 │            │                │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                 │            │  function call │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                 │            ▼                │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                 │   ┌───────────────────┐     │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                 │   │  Trusera SDK      │     │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                 │   │  Interceptor      │     │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                 │   │                   │     │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                 │   │  1. Capture args  │     │
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                 │   │  2. Evaluate      │     │
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                 │   │     Cedar policy  │     │
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>                 │   │  3. Enforce       │     │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>                 │   │     (log/warn/    │     │
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>                 │   │      block)       │     │
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                 │   │  4. Queue event   │     │
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>                 │   └───┬─────────┬─────┘     │
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>                 │       │         │            │
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>                 │       │ pass    │ events     │
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>                 │       │ through │ (batched)  │
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>                 │       ▼         ▼            │
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>                 └───────┼─────────┼────────────┘
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>                         │         │
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>              ┌──────────┘         └──────────┐
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>              ▼                               ▼
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>     ┌─────────────────┐            ┌─────────────────┐
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>     │  External APIs  │            │  Trusera API    │
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>     │  &amp; Tools        │            │                 │
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>     │                 │            │  ┌───────────┐  │
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>     │  - OpenAI       │            │  │  Cedar    │  │
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>     │  - Anthropic    │            │  │  Policy   │  │
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>     │  - Databases    │            │  │  Engine   │  │
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>     │  - File systems │            │  └───────────┘  │
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>     │  - Webhooks     │            │                 │
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>     └─────────────────┘            │  ┌───────────┐  │
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>                                    │  │ Dashboard │  │
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>                                    │  │ &amp; Alerts  │  │
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>                                    │  └───────────┘  │
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>                                    └─────────────────┘
+</code></pre></div>
+<h3 id="interception-mechanisms-by-language">Interception Mechanisms by Language<a class="headerlink" href="#interception-mechanisms-by-language" title="Permanent link">&para;</a></h3>
+<p><strong>Python</strong> -- The <code>@monitor</code> decorator wraps functions at definition time. When a
+decorated function is called, the SDK captures input arguments, measures execution
+time, records the return value (or exception), and queues an event. A background
+thread flushes events to the Trusera API at configurable intervals.</p>
+<p><strong>TypeScript</strong> -- The <code>TruseraInterceptor</code> replaces the global <code>fetch</code> function with
+a wrapper that captures request URL, method, headers, and body. After the real
+request completes, the SDK records the response status and queues an event. A
+<code>setInterval</code> timer drives periodic flushes.</p>
+<p><strong>Go</strong> -- The SDK provides a custom <code>http.RoundTripper</code> that wraps the standard
+<code>http.Transport</code>. Every request passing through the wrapped <code>http.Client</code> is
+intercepted, measured, and recorded. A background goroutine flushes the event
+buffer on a ticker.</p>
+<hr />
+<h2 id="4-quick-start">4. Quick Start<a class="headerlink" href="#4-quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span><span class="p">,</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventType</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;my-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;custom&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">client</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">Event</span><span class="p">(</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="nb">type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">TOOL_CALL</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;web_search&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;latest AI news&quot;</span><span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">))</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="typescript">TypeScript<a class="headerlink" href="#typescript" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">,</span><span class="w"> </span><span class="nx">TruseraInterceptor</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;trusera-sdk&quot;</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">({</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;my-agent&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">});</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">interceptor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraInterceptor</span><span class="p">();</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">install</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">enforcement</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;log&quot;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1">// All fetch() calls are now tracked automatically</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;https://api.openai.com/v1/chat/completions&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="kt">JSON.stringify</span><span class="p">({</span><span class="w"> </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">}),</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">});</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">uninstall</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="go">Go<a class="headerlink" href="#go" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="s">&quot;net/http&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="s">&quot;github.com/Trusera/ai-bom/trusera-sdk-go&quot;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="s">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">RegisterAgent</span><span class="p">(</span><span class="s">&quot;my-agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;custom&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="nx">httpClient</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WrapHTTPClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{},</span><span class="w"> </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">InterceptorOptions</span><span class="p">{</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="nx">Enforcement</span><span class="p">:</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">ModeLog</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="p">})</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="c1">// All requests through httpClient are tracked automatically</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">httpClient</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;https://api.openai.com/v1/models&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="5-integration-guides-for-top-10-agent-frameworks">5. Integration Guides for Top 10 Agent Frameworks<a class="headerlink" href="#5-integration-guides-for-top-10-agent-frameworks" title="Permanent link">&para;</a></h2>
+<h3 id="51-langchain-python">5.1 LangChain (Python)<a class="headerlink" href="#51-langchain-python" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Python (<code>trusera-sdk[langchain]</code>)</p>
+<p>LangChain's callback system provides hooks for every LLM call, tool execution, and
+chain step. The <code>TruseraCallbackHandler</code> plugs directly into these hooks.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">langchain.llms</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">langchain.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">initialize_agent</span><span class="p">,</span> <span class="n">Tool</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk.integrations.langchain</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraCallbackHandler</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;langchain-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;langchain&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">handler</span> <span class="o">=</span> <span class="n">TruseraCallbackHandler</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">llm</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">handler</span><span class="p">])</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">agent</span> <span class="o">=</span> <span class="n">initialize_agent</span><span class="p">(</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">tools</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="n">Tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;search&quot;</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">search_fn</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Search the web&quot;</span><span class="p">),</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="p">],</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">handler</span><span class="p">],</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="p">)</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="c1"># Every LLM call, tool execution, and chain step is tracked</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;What are the top AI security risks?&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: <code>LLM_INVOKE</code> for each model call, <code>TOOL_CALL</code> for each tool
+execution, <code>DECISION</code> for chain-of-thought steps.</p>
+<hr />
+<h3 id="52-langchainjs-nodejs">5.2 LangChain.js (Node.js)<a class="headerlink" href="#52-langchainjs-nodejs" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: TypeScript (<code>trusera-sdk</code>)</p>
+<p>The TypeScript SDK provides a <code>TruseraLangChainHandler</code> that implements the
+LangChain.js <code>BaseCallbackHandler</code> interface.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ChatOpenAI</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;langchain/chat_models/openai&quot;</span><span class="p">;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">,</span><span class="w"> </span><span class="nx">TruseraLangChainHandler</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;trusera-sdk&quot;</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">({</span><span class="w"> </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraLangChainHandler</span><span class="p">(</span><span class="nx">client</span><span class="p">);</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="kd">const</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ChatOpenAI</span><span class="p">({</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nx">callbacks</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">handler</span><span class="p">],</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">});</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="k">await</span><span class="w"> </span><span class="nx">model</span><span class="p">.</span><span class="nx">invoke</span><span class="p">(</span><span class="s2">&quot;What are the top AI security risks?&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: Same event types as the Python LangChain integration --
+<code>LLM_INVOKE</code>, <code>TOOL_CALL</code>, and <code>DECISION</code> events.</p>
+<hr />
+<h3 id="53-crewai">5.3 CrewAI<a class="headerlink" href="#53-crewai" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Python (<code>trusera-sdk[crewai]</code>)</p>
+<p>CrewAI uses a step callback pattern. The <code>TruseraCrewCallback</code> wraps this to capture
+crew execution, agent delegation, and task completion.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">crewai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Crew</span><span class="p">,</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">Task</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk.integrations.crewai</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraCrewCallback</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;crew-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;crewai&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">callback</span> <span class="o">=</span> <span class="n">TruseraCrewCallback</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">researcher</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;Researcher&quot;</span><span class="p">,</span> <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;Research AI trends&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">writer</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;Writer&quot;</span><span class="p">,</span> <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;Write reports&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Research and write about AI trends&quot;</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">researcher</span><span class="p">)</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="n">crew</span> <span class="o">=</span> <span class="n">Crew</span><span class="p">(</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="n">agents</span><span class="o">=</span><span class="p">[</span><span class="n">researcher</span><span class="p">,</span> <span class="n">writer</span><span class="p">],</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="n">tasks</span><span class="o">=</span><span class="p">[</span><span class="n">task</span><span class="p">],</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="n">step_callback</span><span class="o">=</span><span class="n">callback</span><span class="o">.</span><span class="n">step_callback</span><span class="p">,</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="p">)</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="n">result</span> <span class="o">=</span> <span class="n">crew</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: <code>DECISION</code> for each crew step, <code>TOOL_CALL</code> for agent tool
+use, <code>LLM_INVOKE</code> for underlying model calls.</p>
+<hr />
+<h3 id="54-autogen">5.4 AutoGen<a class="headerlink" href="#54-autogen" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Python (<code>trusera-sdk[autogen]</code>)</p>
+<p>AutoGen's hook system lets you intercept messages between agents. The
+<code>TruseraAutoGenHook</code> captures all inter-agent communication and tool use.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">autogen</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk.integrations.autogen</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraAutoGenHook</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;autogen-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;autogen&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">hook</span> <span class="o">=</span> <span class="n">TruseraAutoGenHook</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">assistant</span> <span class="o">=</span> <span class="n">autogen</span><span class="o">.</span><span class="n">AssistantAgent</span><span class="p">(</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">llm_config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;gpt-4&quot;</span><span class="p">},</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="p">)</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="n">user_proxy</span> <span class="o">=</span> <span class="n">autogen</span><span class="o">.</span><span class="n">UserProxyAgent</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="c1"># Register hook for message tracking</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="n">hook</span><span class="o">.</span><span class="n">setup_agent</span><span class="p">(</span><span class="n">assistant</span><span class="p">)</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="n">user_proxy</span><span class="o">.</span><span class="n">initiate_chat</span><span class="p">(</span><span class="n">assistant</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Analyze this data&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: <code>LLM_INVOKE</code> for each model call, <code>DECISION</code> for agent
+message routing, <code>TOOL_CALL</code> for code execution and function calls.</p>
+<hr />
+<h3 id="55-llamaindex">5.5 LlamaIndex<a class="headerlink" href="#55-llamaindex" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Python (<code>trusera-sdk</code>)</p>
+<p>LlamaIndex does not have a dedicated integration module, but the <code>@monitor</code>
+decorator works perfectly with LlamaIndex query engines and retrievers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">llama_index.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">VectorStoreIndex</span><span class="p">,</span> <span class="n">SimpleDirectoryReader</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">set_default_client</span><span class="p">,</span> <span class="n">EventType</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;llamaindex-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;llamaindex&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">set_default_client</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="n">index</span> <span class="o">=</span> <span class="n">VectorStoreIndex</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">DATA_ACCESS</span><span class="p">)</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">query_index</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    <span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">()</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">LLM_INVOKE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;llamaindex_query&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">ask</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>    <span class="k">return</span> <span class="n">query_index</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="n">result</span> <span class="o">=</span> <span class="n">ask</span><span class="p">(</span><span class="s2">&quot;What are the key findings?&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: <code>DATA_ACCESS</code> for index queries, <code>LLM_INVOKE</code> for the
+top-level question-answering call.</p>
+<hr />
+<h3 id="56-semantic-kernel-python">5.6 Semantic Kernel (Python)<a class="headerlink" href="#56-semantic-kernel-python" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Python (<code>trusera-sdk</code>)</p>
+<p>Microsoft Semantic Kernel exposes functions as plugins. Wrap plugin functions with
+<code>@monitor</code> to capture every kernel invocation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">semantic_kernel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sk</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">set_default_client</span><span class="p">,</span> <span class="n">EventType</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;sk-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;semantic-kernel&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">set_default_client</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="n">kernel</span> <span class="o">=</span> <span class="n">sk</span><span class="o">.</span><span class="n">Kernel</span><span class="p">()</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">TOOL_CALL</span><span class="p">)</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">search_web</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="c1"># Your search implementation</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    <span class="k">return</span> <span class="s2">&quot;Search results for: &quot;</span> <span class="o">+</span> <span class="n">query</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">LLM_INVOKE</span><span class="p">)</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_kernel</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">kernel</span><span class="o">.</span><span class="n">invoke_prompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">invoke_kernel</span><span class="p">(</span><span class="s2">&quot;Summarize recent AI security papers&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: <code>TOOL_CALL</code> for plugin function invocations, <code>LLM_INVOKE</code>
+for kernel prompt calls.</p>
+<hr />
+<h3 id="57-openai-agents-sdk">5.7 OpenAI Agents SDK<a class="headerlink" href="#57-openai-agents-sdk" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Python (<code>trusera-sdk</code>) or TypeScript (<code>trusera-sdk</code>)</p>
+<p>The OpenAI Agents SDK can be instrumented from either language. Use the <code>@monitor</code>
+decorator in Python or the <code>fetch</code> interceptor in TypeScript.</p>
+<h4 id="python_1">Python<a class="headerlink" href="#python_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">Runner</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">set_default_client</span><span class="p">,</span> <span class="n">EventType</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;openai-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;openai-agents-sdk&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">set_default_client</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">TOOL_CALL</span><span class="p">)</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_weather</span><span class="p">(</span><span class="n">city</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;72F in </span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;weather-assistant&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="n">instructions</span><span class="o">=</span><span class="s2">&quot;You help with weather queries.&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">get_weather</span><span class="p">],</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="p">)</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="n">result</span> <span class="o">=</span> <span class="n">Runner</span><span class="o">.</span><span class="n">run_sync</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="s2">&quot;What is the weather in SF?&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="typescript_1">TypeScript<a class="headerlink" href="#typescript_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">,</span><span class="w"> </span><span class="nx">TruseraInterceptor</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;trusera-sdk&quot;</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">({</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;openai-agent&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">});</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">interceptor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraInterceptor</span><span class="p">();</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">install</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">enforcement</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;log&quot;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="c1">// The OpenAI Agents SDK uses fetch internally --</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="c1">// all API calls are captured automatically</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Agent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@openai/agents&quot;</span><span class="p">;</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="kd">const</span><span class="w"> </span><span class="nx">agent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Agent</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">agent</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="s2">&quot;What is the weather in SF?&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">uninstall</span><span class="p">();</span>
+</code></pre></div>
+<hr />
+<h3 id="58-vercel-ai-sdk">5.8 Vercel AI SDK<a class="headerlink" href="#58-vercel-ai-sdk" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: TypeScript (<code>trusera-sdk</code>)</p>
+<p>The Vercel AI SDK uses <code>fetch</code> internally for all model calls. The Trusera
+interceptor captures these transparently.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">generateText</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;ai&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">openai</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@ai-sdk/openai&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">,</span><span class="w"> </span><span class="nx">TruseraInterceptor</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;trusera-sdk&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">({</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">  </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">  </span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;vercel-ai-agent&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">});</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="kd">const</span><span class="w"> </span><span class="nx">interceptor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraInterceptor</span><span class="p">();</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">install</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">  </span><span class="nx">enforcement</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;warn&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">  </span><span class="nx">excludePatterns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;^http://localhost.*&quot;</span><span class="p">],</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="p">});</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="c1">// All model calls through the Vercel AI SDK are captured</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">generateText</span><span class="p">({</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">openai</span><span class="p">(</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">),</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">  </span><span class="nx">prompt</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Explain AI agent security in one paragraph.&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="p">});</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">uninstall</span><span class="p">();</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: <code>API_CALL</code> events for every outbound HTTP request to the
+model provider, with URL, method, status code, and latency.</p>
+<hr />
+<h3 id="59-custom-go-agents">5.9 Custom Go Agents<a class="headerlink" href="#59-custom-go-agents" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Go (<code>trusera-sdk-go</code>)</p>
+<p>For Go agents built from scratch, wrap your <code>http.Client</code> and use manual event
+tracking for non-HTTP actions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="s">&quot;net/http&quot;</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="s">&quot;github.com/Trusera/ai-bom/trusera-sdk-go&quot;</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="nx">truseraClient</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="s">&quot;tsk_your_api_key&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">        </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WithAgentID</span><span class="p">(</span><span class="s">&quot;go-agent&quot;</span><span class="p">),</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">truseraClient</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="nx">truseraClient</span><span class="p">.</span><span class="nx">RegisterAgent</span><span class="p">(</span><span class="s">&quot;go-agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;custom&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">    </span><span class="c1">// Wrap HTTP client -- all outbound requests are tracked</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">    </span><span class="nx">httpClient</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WrapHTTPClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{},</span><span class="w"> </span><span class="nx">truseraClient</span><span class="p">,</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">InterceptorOptions</span><span class="p">{</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">        </span><span class="nx">Enforcement</span><span class="p">:</span><span class="w">    </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">ModeBlock</span><span class="p">,</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">        </span><span class="nx">BlockPatterns</span><span class="p">:</span><span class="w">  </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;malicious.com&quot;</span><span class="p">},</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">        </span><span class="nx">ExcludePatterns</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;api.trusera.io&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p">},</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">    </span><span class="p">})</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">    </span><span class="c1">// HTTP calls are auto-tracked</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">    </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">httpClient</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;https://api.openai.com/v1/models&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Blocked or failed:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="w">        </span><span class="k">return</span>
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a><span class="w">    </span><span class="c1">// Track non-HTTP actions manually</span>
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a><span class="w">    </span><span class="nx">event</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">NewEvent</span><span class="p">(</span><span class="nx">trusera</span><span class="p">.</span><span class="nx">EventDecision</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;route_selection&quot;</span><span class="p">).</span>
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="w">        </span><span class="nx">WithPayload</span><span class="p">(</span><span class="s">&quot;selected_route&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;api_v2&quot;</span><span class="p">).</span>
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a><span class="w">        </span><span class="nx">WithPayload</span><span class="p">(</span><span class="s">&quot;confidence&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.92</span><span class="p">)</span>
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a><span class="w">    </span><span class="nx">truseraClient</span><span class="p">.</span><span class="nx">Track</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+<a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="510-custom-python-agents">5.10 Custom Python Agents<a class="headerlink" href="#510-custom-python-agents" title="Permanent link">&para;</a></h3>
+<p><strong>SDK</strong>: Python (<code>trusera-sdk</code>)</p>
+<p>For custom Python agents that do not use a framework, the <code>@monitor</code> decorator is
+the recommended approach.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">trusera_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">TruseraClient</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">set_default_client</span><span class="p">,</span> <span class="n">EventType</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;custom-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;custom&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">set_default_client</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">LLM_INVOKE</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;call_openai&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">call_openai</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>        <span class="s2">&quot;https://api.openai.com/v1/chat/completions&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span> <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]},</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer sk-...&quot;</span><span class="p">},</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    <span class="p">)</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;choices&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">]</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">TOOL_CALL</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;search_db&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">search_database</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    <span class="c1"># Your database logic</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Result&quot;</span><span class="p">}]</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="nd">@monitor</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">DECISION</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;agent_loop&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="k">def</span><span class="w"> </span><span class="nf">agent_step</span><span class="p">(</span><span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">search_database</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Context: </span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="se">\n</span><span class="s2">Question: </span><span class="si">{</span><span class="n">user_input</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>    <span class="k">return</span> <span class="n">call_openai</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="n">answer</span> <span class="o">=</span> <span class="n">agent_step</span><span class="p">(</span><span class="s2">&quot;What are our top vulnerabilities?&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="nb">print</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>What gets tracked</strong>: <code>LLM_INVOKE</code> for every OpenAI call, <code>TOOL_CALL</code> for every
+database search, <code>DECISION</code> for each agent loop iteration -- all with timing,
+input arguments, and return values.</p>
+<hr />
+<h2 id="6-enforcement-modes">6. Enforcement Modes<a class="headerlink" href="#6-enforcement-modes" title="Permanent link">&para;</a></h2>
+<p>All three SDKs support three enforcement modes that control what happens when a
+policy violation is detected.</p>
+<h3 id="61-log-mode-default">6.1 Log Mode (Default)<a class="headerlink" href="#61-log-mode-default" title="Permanent link">&para;</a></h3>
+<p>Events are recorded silently. No output to the console, no exceptions thrown, no
+requests blocked. This is the safest mode for initial rollout.</p>
+<p><strong>When to use</strong>: Development, staging, initial production deployment, audit-only
+compliance.</p>
+<h4 id="python_2">Python<a class="headerlink" href="#python_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Log mode is the default -- no configuration needed</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="typescript_2">TypeScript<a class="headerlink" href="#typescript_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">install</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">enforcement</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;log&quot;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1">// fetch(&quot;https://restricted-api.com&quot;) -&gt; request proceeds, event recorded silently</span>
+</code></pre></div>
+<h4 id="go_1">Go<a class="headerlink" href="#go_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nx">opts</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">InterceptorOptions</span><span class="p">{</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="nx">Enforcement</span><span class="p">:</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">ModeLog</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="p">}</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1">// httpClient.Get(&quot;https://restricted-api.com&quot;) -&gt; request proceeds, event recorded</span>
+</code></pre></div>
+<hr />
+<h3 id="62-warn-mode">6.2 Warn Mode<a class="headerlink" href="#62-warn-mode" title="Permanent link">&para;</a></h3>
+<p>Events are recorded and a warning is emitted. In Python this logs a warning, in
+TypeScript it prints to <code>console.warn</code>, in Go it writes to <code>log.Printf</code>. Requests
+are NOT blocked.</p>
+<p><strong>When to use</strong>: Pre-production hardening, gradual policy rollout, alerting teams
+to violations without breaking workflows.</p>
+<h4 id="python_3">Python<a class="headerlink" href="#python_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Warning appears in logs:</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1"># [Trusera] WARN: Policy violation detected for tool_call &quot;restricted_api&quot;</span>
+</code></pre></div>
+<h4 id="typescript_3">TypeScript<a class="headerlink" href="#typescript_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">install</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">enforcement</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;warn&quot;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="c1">// Console output: [Trusera] Policy violation (allowed): Unauthorized API access</span>
+</code></pre></div>
+<h4 id="go_2">Go<a class="headerlink" href="#go_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nx">opts</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">InterceptorOptions</span><span class="p">{</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="nx">Enforcement</span><span class="p">:</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">ModeWarn</span><span class="p">,</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="nx">BlockPatterns</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;suspicious.com&quot;</span><span class="p">},</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">}</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1">// Log output: [Trusera] WARN: request to suspicious.com matched block pattern</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="c1">// Request proceeds normally</span>
+</code></pre></div>
+<hr />
+<h3 id="63-block-mode">6.3 Block Mode<a class="headerlink" href="#63-block-mode" title="Permanent link">&para;</a></h3>
+<p>Violations cause the request to fail. In Python an exception is raised, in
+TypeScript an <code>Error</code> is thrown, in Go the HTTP response is replaced with a
+synthetic 403. This is the strongest enforcement mode.</p>
+<p><strong>When to use</strong>: Production enforcement, compliance-critical workloads, when you
+are confident your policies are correct.</p>
+<h4 id="python_4">Python<a class="headerlink" href="#python_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Raises: trusera_sdk.PolicyViolationError: Blocked by policy: unauthorized_data_access</span>
+</code></pre></div>
+<h4 id="typescript_4">TypeScript<a class="headerlink" href="#typescript_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nx">interceptor</span><span class="p">.</span><span class="nx">install</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">enforcement</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;block&quot;</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;https://restricted-api.com/data&quot;</span><span class="p">);</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="c1">// Error: [Trusera] Policy violation: Unauthorized API access</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Blocked:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="go_3">Go<a class="headerlink" href="#go_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nx">opts</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">InterceptorOptions</span><span class="p">{</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="nx">Enforcement</span><span class="p">:</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">ModeBlock</span><span class="p">,</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nx">BlockPatterns</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;malicious.com&quot;</span><span class="p">},</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="p">}</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nx">httpClient</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WrapHTTPClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{},</span><span class="w"> </span><span class="nx">truseraClient</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="p">)</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">httpClient</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;https://malicious.com/exfiltrate&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="c1">// err != nil: request blocked by Trusera policy</span>
+</code></pre></div>
+<hr />
+<h3 id="enforcement-mode-summary">Enforcement Mode Summary<a class="headerlink" href="#enforcement-mode-summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Logs Event</th>
+<th>Console Output</th>
+<th>Blocks Request</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>log</code></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Audit, development</td>
+</tr>
+<tr>
+<td><code>warn</code></td>
+<td>Yes</td>
+<td>Yes (warning)</td>
+<td>No</td>
+<td>Staging, gradual rollout</td>
+</tr>
+<tr>
+<td><code>block</code></td>
+<td>Yes</td>
+<td>Yes (error)</td>
+<td>Yes</td>
+<td>Production enforcement</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-event-types-reference">7. Event Types Reference<a class="headerlink" href="#7-event-types-reference" title="Permanent link">&para;</a></h2>
+<p>All three SDKs share the same six event types. These provide a consistent schema
+across languages, making it possible to query and visualize events from Python,
+TypeScript, and Go agents in a single Trusera dashboard.</p>
+<h3 id="71-tool_call">7.1 TOOL_CALL<a class="headerlink" href="#71-tool_call" title="Permanent link">&para;</a></h3>
+<p>Records a tool or function invocation by the agent.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td><code>"tool_call"</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>Tool identifier (e.g., <code>"web_search"</code>, <code>"calculator"</code>)</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>object</code></td>
+<td>Input arguments and parameters</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>object</code></td>
+<td>Duration, status, framework-specific data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Payload</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">{</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool_call&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web_search&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI security best practices&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span><span class="nt">&quot;results_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="w">    </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="72-llm_invoke">7.2 LLM_INVOKE<a class="headerlink" href="#72-llm_invoke" title="Permanent link">&para;</a></h3>
+<p>Records an LLM inference call.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td><code>"llm_invoke"</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>Model identifier (e.g., <code>"gpt-4"</code>, <code>"claude-3"</code>)</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>object</code></td>
+<td>Model, tokens, temperature, prompt summary</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>object</code></td>
+<td>Latency, provider, cost estimate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Payload</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">{</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llm_invoke&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openai.gpt4&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="nt">&quot;prompt_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">    </span><span class="nt">&quot;completion_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">    </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">    </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1200</span><span class="p">,</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="w">    </span><span class="nt">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openai&quot;</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="73-data_access">7.3 DATA_ACCESS<a class="headerlink" href="#73-data_access" title="Permanent link">&para;</a></h3>
+<p>Records a data read or write operation.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td><code>"data_access"</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>Data source identifier (e.g., <code>"database.users.read"</code>)</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>object</code></td>
+<td>Query, table, operation type, row count</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>object</code></td>
+<td>Duration, data classification</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Payload</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">{</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data_access&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;database.users.read&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">    </span><span class="nt">&quot;table&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;users&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SELECT * FROM users WHERE role = &#39;admin&#39;&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">    </span><span class="nt">&quot;rows_returned&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="w">    </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="w">    </span><span class="nt">&quot;classification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pii&quot;</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="74-api_call">7.4 API_CALL<a class="headerlink" href="#74-api_call" title="Permanent link">&para;</a></h3>
+<p>Records an outbound HTTP API request. This event type is typically generated
+automatically by the HTTP interceptor.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td><code>"api_call"</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>HTTP method and URL (e.g., <code>"POST https://api.stripe.com/v1/charges"</code>)</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>object</code></td>
+<td>URL, method, status code, request/response size</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>object</code></td>
+<td>Latency, headers (redacted), TLS info</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Payload</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="p">{</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api_call&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST https://api.stripe.com/v1/charges&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.stripe.com/v1/charges&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">    </span><span class="nt">&quot;status_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w">    </span><span class="nt">&quot;response_size_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1524</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="w">    </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">340</span><span class="p">,</span>
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="w">    </span><span class="nt">&quot;tls_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3&quot;</span>
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="75-file_write">7.5 FILE_WRITE<a class="headerlink" href="#75-file_write" title="Permanent link">&para;</a></h3>
+<p>Records a file system write operation.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td><code>"file_write"</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>Operation identifier (e.g., <code>"save_report"</code>)</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>object</code></td>
+<td>File path, size, content type</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>object</code></td>
+<td>Duration, permissions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Payload</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="p">{</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file_write&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;save_report&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">    </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/report.pdf&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="w">    </span><span class="nt">&quot;size_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="w">    </span><span class="nt">&quot;content_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/pdf&quot;</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="w">    </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h3 id="76-decision">7.6 DECISION<a class="headerlink" href="#76-decision" title="Permanent link">&para;</a></h3>
+<p>Records an agent decision point or reasoning step.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td><code>"decision"</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>Decision identifier (e.g., <code>"approve_transaction"</code>)</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>object</code></td>
+<td>Confidence score, reasoning, selected action</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td><code>object</code></td>
+<td>Context, alternatives considered</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Payload</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="p">{</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;decision&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;approve_transaction&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">    </span><span class="nt">&quot;reasoning&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;All fraud checks passed&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">    </span><span class="nt">&quot;selected_action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;approve&quot;</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="w">    </span><span class="nt">&quot;alternatives&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;flag_for_review&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;reject&quot;</span><span class="p">],</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="w">    </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;transaction_id=txn_abc123&quot;</span>
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h2 id="8-configuration-reference">8. Configuration Reference<a class="headerlink" href="#8-configuration-reference" title="Permanent link">&para;</a></h2>
+<h3 id="81-environment-variables">8.1 Environment Variables<a class="headerlink" href="#81-environment-variables" title="Permanent link">&para;</a></h3>
+<p>All three SDKs respect the same environment variables, providing a consistent
+configuration experience across languages.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TRUSERA_API_KEY</code></td>
+<td>API key for authentication</td>
+<td>(required)</td>
+</tr>
+<tr>
+<td><code>TRUSERA_API_URL</code></td>
+<td>Base URL for the Trusera API</td>
+<td><code>https://api.trusera.io</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TRUSERA_API_KEY</span><span class="o">=</span>tsk_your_api_key
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TRUSERA_API_URL</span><span class="o">=</span>https://api.trusera.io
+</code></pre></div>
+<hr />
+<h3 id="82-programmatic-configuration">8.2 Programmatic Configuration<a class="headerlink" href="#82-programmatic-configuration" title="Permanent link">&para;</a></h3>
+<h4 id="python_5">Python<a class="headerlink" href="#python_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">client</span> <span class="o">=</span> <span class="n">TruseraClient</span><span class="p">(</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>    <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">,</span>         <span class="c1"># Required. Also reads TRUSERA_API_KEY</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://api.trusera.io&quot;</span><span class="p">,</span>  <span class="c1"># API endpoint</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>    <span class="n">flush_interval</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>                  <span class="c1"># Seconds between auto-flushes</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>    <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                      <span class="c1"># Max events per batch</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>                        <span class="c1"># HTTP request timeout (seconds)</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api_key</code></td>
+<td><code>str</code></td>
+<td>env <code>TRUSERA_API_KEY</code></td>
+<td>Authentication key</td>
+</tr>
+<tr>
+<td><code>base_url</code></td>
+<td><code>str</code></td>
+<td><code>https://api.trusera.dev</code></td>
+<td>API base URL</td>
+</tr>
+<tr>
+<td><code>flush_interval</code></td>
+<td><code>float</code></td>
+<td><code>5.0</code></td>
+<td>Seconds between auto-flushes</td>
+</tr>
+<tr>
+<td><code>batch_size</code></td>
+<td><code>int</code></td>
+<td><code>100</code></td>
+<td>Maximum events per batch</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td><code>float</code></td>
+<td><code>10.0</code></td>
+<td>HTTP timeout in seconds</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="typescript_5">TypeScript<a class="headerlink" href="#typescript_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TruseraClient</span><span class="p">({</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;tsk_your_api_key&quot;</span><span class="p">,</span><span class="w">       </span><span class="c1">// Required. Also reads TRUSERA_API_KEY</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">  </span><span class="nx">baseUrl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://api.trusera.io&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// API endpoint</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">  </span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;my-agent&quot;</span><span class="p">,</span><span class="w">              </span><span class="c1">// Pre-registered agent ID</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">  </span><span class="nx">flushInterval</span><span class="o">:</span><span class="w"> </span><span class="kt">5000</span><span class="p">,</span><span class="w">              </span><span class="c1">// Milliseconds between auto-flushes</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">  </span><span class="nx">batchSize</span><span class="o">:</span><span class="w"> </span><span class="kt">100</span><span class="p">,</span><span class="w">                   </span><span class="c1">// Max events per batch</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="w">  </span><span class="nx">debug</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span><span class="w">                     </span><span class="c1">// Enable debug logging</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="p">});</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apiKey</code></td>
+<td><code>string</code></td>
+<td>env <code>TRUSERA_API_KEY</code></td>
+<td>Authentication key</td>
+</tr>
+<tr>
+<td><code>baseUrl</code></td>
+<td><code>string</code></td>
+<td><code>https://api.trusera.io</code></td>
+<td>API base URL</td>
+</tr>
+<tr>
+<td><code>agentId</code></td>
+<td><code>string</code></td>
+<td><code>undefined</code></td>
+<td>Pre-registered agent ID</td>
+</tr>
+<tr>
+<td><code>flushInterval</code></td>
+<td><code>number</code></td>
+<td><code>5000</code></td>
+<td>Milliseconds between flushes</td>
+</tr>
+<tr>
+<td><code>batchSize</code></td>
+<td><code>number</code></td>
+<td><code>100</code></td>
+<td>Maximum events per batch</td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Enable debug logging</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interceptor Options</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enforcement</code></td>
+<td><code>"log" \| "warn" \| "block"</code></td>
+<td><code>"log"</code></td>
+<td>Violation handling mode</td>
+</tr>
+<tr>
+<td><code>policyUrl</code></td>
+<td><code>string</code></td>
+<td><code>undefined</code></td>
+<td>Cedar policy service URL</td>
+</tr>
+<tr>
+<td><code>excludePatterns</code></td>
+<td><code>string[]</code></td>
+<td><code>[]</code></td>
+<td>URL regex patterns to skip</td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Enable debug logging</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="go_4">Go<a class="headerlink" href="#go_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="s">&quot;tsk_your_api_key&quot;</span><span class="p">,</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">    </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WithBaseURL</span><span class="p">(</span><span class="s">&quot;https://api.trusera.io&quot;</span><span class="p">),</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">    </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WithAgentID</span><span class="p">(</span><span class="s">&quot;my-agent&quot;</span><span class="p">),</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WithFlushInterval</span><span class="p">(</span><span class="mi">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">),</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">    </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WithBatchSize</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option Function</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WithBaseURL(url)</code></td>
+<td><code>string</code></td>
+<td><code>https://api.trusera.io</code></td>
+<td>API base URL</td>
+</tr>
+<tr>
+<td><code>WithAgentID(id)</code></td>
+<td><code>string</code></td>
+<td><code>""</code></td>
+<td>Pre-registered agent ID</td>
+</tr>
+<tr>
+<td><code>WithFlushInterval(d)</code></td>
+<td><code>time.Duration</code></td>
+<td><code>5s</code></td>
+<td>Duration between flushes</td>
+</tr>
+<tr>
+<td><code>WithBatchSize(n)</code></td>
+<td><code>int</code></td>
+<td><code>100</code></td>
+<td>Maximum events per batch</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interceptor Options</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Enforcement</code></td>
+<td><code>Mode</code></td>
+<td><code>ModeLog</code></td>
+<td><code>ModeLog</code>, <code>ModeWarn</code>, or <code>ModeBlock</code></td>
+</tr>
+<tr>
+<td><code>ExcludePatterns</code></td>
+<td><code>[]string</code></td>
+<td><code>nil</code></td>
+<td>URL patterns to skip</td>
+</tr>
+<tr>
+<td><code>BlockPatterns</code></td>
+<td><code>[]string</code></td>
+<td><code>nil</code></td>
+<td>URL patterns that trigger enforcement</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-performance">9. Performance<a class="headerlink" href="#9-performance" title="Permanent link">&para;</a></h2>
+<p>The SDKs are designed to add negligible overhead to your agent's execution. Here
+are the key design principles and benchmarks.</p>
+<h3 id="91-non-blocking-by-default">9.1 Non-Blocking by Default<a class="headerlink" href="#91-non-blocking-by-default" title="Permanent link">&para;</a></h3>
+<p>Event tracking (<code>track()</code> / <code>Track()</code>) is always non-blocking. Events are placed
+in an in-memory buffer and flushed asynchronously:</p>
+<table>
+<thead>
+<tr>
+<th>SDK</th>
+<th>Buffer Mechanism</th>
+<th>Flush Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td><code>queue.Queue</code> + background <code>threading.Thread</code></td>
+<td>Timer (default 5s) or batch size (default 100)</td>
+</tr>
+<tr>
+<td>TypeScript</td>
+<td><code>Array</code> + <code>setInterval</code></td>
+<td>Timer (default 5000ms) or batch size (default 100)</td>
+</tr>
+<tr>
+<td>Go</td>
+<td><code>[]Event</code> + <code>sync.Mutex</code> + background goroutine</td>
+<td><code>time.Ticker</code> (default 5s) or batch size (default 100)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="92-overhead">9.2 Overhead<a class="headerlink" href="#92-overhead" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Typical Overhead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>track()</code> call</td>
+<td>&lt; 1 microsecond (buffer append)</td>
+</tr>
+<tr>
+<td>HTTP interception (per request)</td>
+<td>&lt; 0.5 ms (timestamp + event creation)</td>
+</tr>
+<tr>
+<td>Batch flush (100 events)</td>
+<td>10-50 ms (single HTTP POST to Trusera API)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="93-batching-strategy">9.3 Batching Strategy<a class="headerlink" href="#93-batching-strategy" title="Permanent link">&para;</a></h3>
+<p>Events are accumulated in memory and sent in batches to minimize network round
+trips. A flush occurs when <strong>either</strong> condition is met:</p>
+<ol>
+<li>The batch buffer reaches <code>batch_size</code> events (default: 100).</li>
+<li>The flush timer fires (default: every 5 seconds).</li>
+</ol>
+<p>On shutdown (<code>close()</code> / <code>Close()</code>), a final flush sends any remaining events.</p>
+<h3 id="94-failure-handling">9.4 Failure Handling<a class="headerlink" href="#94-failure-handling" title="Permanent link">&para;</a></h3>
+<p>If a flush fails (network error, API timeout), the SDKs handle it gracefully:</p>
+<ul>
+<li><strong>Python</strong>: Logs the error via <code>logging.warning()</code>, discards the batch, continues.</li>
+<li><strong>TypeScript</strong>: Logs via <code>console.warn()</code>, retries once, then discards.</li>
+<li><strong>Go</strong>: Logs via <code>log.Printf()</code>, discards the batch, continues.</li>
+</ul>
+<p>The SDK will never crash your application due to a telemetry failure. Agent
+execution always takes priority.</p>
+<h3 id="95-memory-footprint">9.5 Memory Footprint<a class="headerlink" href="#95-memory-footprint" title="Permanent link">&para;</a></h3>
+<p>Each event consumes approximately 200-500 bytes in memory. With the default batch
+size of 100, the maximum buffer size before flush is roughly 50 KB -- negligible
+for any production workload.</p>
+<hr />
+<h2 id="10-migration-guide">10. Migration Guide<a class="headerlink" href="#10-migration-guide" title="Permanent link">&para;</a></h2>
+<p>Switching between SDKs is straightforward because all three share the same event
+schema, API key format, and agent registration model. Events from any SDK appear
+identically in the Trusera dashboard.</p>
+<h3 id="101-python-to-typescript">10.1 Python to TypeScript<a class="headerlink" href="#101-python-to-typescript" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Python</th>
+<th>TypeScript Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TruseraClient(api_key=...)</code></td>
+<td><code>new TruseraClient({ apiKey: ... })</code></td>
+</tr>
+<tr>
+<td><code>client.register_agent(name, framework)</code></td>
+<td><code>await client.registerAgent(name, framework)</code></td>
+</tr>
+<tr>
+<td><code>client.track(Event(...))</code></td>
+<td><code>client.track(createEvent(...))</code></td>
+</tr>
+<tr>
+<td><code>client.flush()</code></td>
+<td><code>await client.flush()</code></td>
+</tr>
+<tr>
+<td><code>client.close()</code></td>
+<td><code>await client.close()</code></td>
+</tr>
+<tr>
+<td><code>@monitor(event_type=...)</code></td>
+<td><code>interceptor.install(client, ...)</code></td>
+</tr>
+<tr>
+<td><code>EventType.TOOL_CALL</code></td>
+<td><code>EventType.TOOL_CALL</code></td>
+</tr>
+<tr>
+<td><code>TruseraCallbackHandler</code></td>
+<td><code>TruseraLangChainHandler</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key differences</strong>:
+- TypeScript <code>flush()</code> and <code>close()</code> return Promises; always <code>await</code> them.
+- The TypeScript SDK uses <code>fetch</code> interception instead of a decorator pattern.
+  Wrap tool functions manually with <code>createEvent()</code> if you need per-function tracking.
+- CrewAI and AutoGen integrations are Python-only.</p>
+<hr />
+<h3 id="102-python-to-go">10.2 Python to Go<a class="headerlink" href="#102-python-to-go" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Python</th>
+<th>Go Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TruseraClient(api_key=...)</code></td>
+<td><code>trusera.NewClient("api-key", ...)</code></td>
+</tr>
+<tr>
+<td><code>client.register_agent(name, fw)</code></td>
+<td><code>client.RegisterAgent(name, fw)</code></td>
+</tr>
+<tr>
+<td><code>client.track(Event(...))</code></td>
+<td><code>client.Track(trusera.NewEvent(...))</code></td>
+</tr>
+<tr>
+<td><code>client.flush()</code></td>
+<td><code>client.Flush()</code></td>
+</tr>
+<tr>
+<td><code>client.close()</code></td>
+<td><code>client.Close()</code></td>
+</tr>
+<tr>
+<td><code>@monitor(...)</code></td>
+<td><code>trusera.WrapHTTPClient(...)</code></td>
+</tr>
+<tr>
+<td><code>EventType.TOOL_CALL</code></td>
+<td><code>trusera.EventToolCall</code></td>
+</tr>
+<tr>
+<td><code>with TruseraClient(...) as c:</code></td>
+<td><code>defer client.Close()</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key differences</strong>:
+- Go uses functional options (<code>WithBaseURL</code>, <code>WithBatchSize</code>) instead of keyword arguments.
+- Go has <code>BlockPatterns</code> for URL-based policy enforcement; Python relies on Cedar policies.
+- No framework-specific callback handlers in Go. Use <code>WrapHTTPClient</code> for HTTP
+  interception and <code>Track()</code> for manual event recording.
+- Go events use a builder pattern: <code>NewEvent(...).WithPayload(k, v)</code>.</p>
+<hr />
+<h3 id="103-typescript-to-go">10.3 TypeScript to Go<a class="headerlink" href="#103-typescript-to-go" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>TypeScript</th>
+<th>Go Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new TruseraClient({ apiKey })</code></td>
+<td><code>trusera.NewClient(apiKey)</code></td>
+</tr>
+<tr>
+<td><code>client.registerAgent(name, fw)</code></td>
+<td><code>client.RegisterAgent(name, fw)</code></td>
+</tr>
+<tr>
+<td><code>client.track(createEvent(...))</code></td>
+<td><code>client.Track(trusera.NewEvent(...))</code></td>
+</tr>
+<tr>
+<td><code>await client.flush()</code></td>
+<td><code>client.Flush()</code></td>
+</tr>
+<tr>
+<td><code>await client.close()</code></td>
+<td><code>client.Close()</code></td>
+</tr>
+<tr>
+<td><code>interceptor.install(client, opts)</code></td>
+<td><code>trusera.WrapHTTPClient(httpClient, client, opts)</code></td>
+</tr>
+<tr>
+<td><code>interceptor.uninstall()</code></td>
+<td>(use a different <code>http.Client</code> or stop using the wrapper)</td>
+</tr>
+<tr>
+<td><code>EventType.TOOL_CALL</code></td>
+<td><code>trusera.EventToolCall</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key differences</strong>:
+- Go wraps <code>http.Client</code> explicitly; TypeScript monkey-patches <code>globalThis.fetch</code>.
+- Go's <code>WrapHTTPClient</code> returns a new <code>*http.Client</code>; the original is untouched.
+- TypeScript's <code>excludePatterns</code> uses regex strings; Go's <code>ExcludePatterns</code> uses
+  simple substring matching.
+- Go does not support <code>policyUrl</code> in interceptor options; use <code>BlockPatterns</code> instead.</p>
+<hr />
+<h3 id="104-shared-agent-identity">10.4 Shared Agent Identity<a class="headerlink" href="#104-shared-agent-identity" title="Permanent link">&para;</a></h3>
+<p>The same agent ID works across all SDKs. If you register an agent in Python and
+later switch to Go, use the same agent ID to maintain continuity:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Python: register agent</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="n">client</span><span class="o">.</span><span class="n">register_agent</span><span class="p">(</span><span class="s2">&quot;my-agent&quot;</span><span class="p">,</span> <span class="s2">&quot;custom&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1">// Go: reuse the same identity</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="s">&quot;tsk_same_api_key&quot;</span><span class="p">,</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">    </span><span class="nx">trusera</span><span class="p">.</span><span class="nx">WithAgentID</span><span class="p">(</span><span class="s">&quot;my-agent&quot;</span><span class="p">),</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="p">)</span>
+</code></pre></div>
+<p>All historical events remain associated with <code>my-agent</code> in the Trusera dashboard,
+regardless of which SDK generated them.</p>
+<hr />
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.trusera.io">Trusera Platform Documentation</a></li>
+<li><a href="https://www.cedarpolicy.com">Cedar Policy Language</a></li>
+<li><a href="https://docs.trusera.io/sdk/python">Python SDK Reference</a></li>
+<li><a href="https://docs.trusera.io/sdk/typescript">TypeScript SDK Reference</a></li>
+<li><a href="https://pkg.go.dev/github.com/Trusera/ai-bom/trusera-sdk-go">Go SDK Reference</a></li>
+<li><a href="https://github.com/Trusera/ai-bom">AI-BOM Scanner</a></li>
+</ul>
+<hr />
+<p><em>Apache 2.0 Licensed. Built by the Trusera team.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
