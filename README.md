@@ -1,61 +1,40 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Trusera/ai-bom/main/assets/logo.png" alt="AI-BOM Logo" width="80" />
-  <img src="https://raw.githubusercontent.com/Trusera/ai-bom/main/assets/maskot.png" alt="Trusera Mascot" width="80" style="margin-left: 12px" />
+  <img src="https://raw.githubusercontent.com/Trusera/ai-bom/main/assets/logo.png" alt="AI-BOM Logo" width="120" />
+  <br /><br />
   <h1>AI-BOM</h1>
-  <p><strong>Discover every AI agent, model, and API hiding in your infrastructure</strong></p>
+  <h3>Discover every AI agent, model, and API hiding in your infrastructure</h3>
 
-  <!-- badges -->
-  <p>
-    <a href="https://github.com/Trusera/ai-bom/stargazers"><img src="https://img.shields.io/github/stars/Trusera/ai-bom?style=social" alt="GitHub Stars" /></a>
-    <a href="https://pypi.org/project/ai-bom/"><img src="https://img.shields.io/pypi/v/ai-bom.svg" alt="PyPI" /></a>
-    <a href="https://pypi.org/project/ai-bom/"><img src="https://img.shields.io/pypi/dm/ai-bom.svg" alt="PyPI Downloads" /></a>
-    <a href="https://www.npmjs.com/package/n8n-nodes-trusera"><img src="https://img.shields.io/npm/v/n8n-nodes-trusera.svg" alt="npm n8n" /></a>
-    <a href="https://pypi.org/project/trusera-sdk/"><img src="https://img.shields.io/pypi/v/trusera-sdk.svg?label=trusera-sdk" alt="PyPI SDK" /></a>
-    <a href="https://www.npmjs.com/package/trusera-sdk"><img src="https://img.shields.io/npm/v/trusera-sdk.svg?label=trusera-sdk" alt="npm SDK" /></a>
-    <img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+" />
-    <img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" />
-    <img src="https://img.shields.io/badge/CycloneDX-1.6-green.svg" alt="CycloneDX 1.6" />
-    <img src="https://img.shields.io/badge/tests-651%20passing-brightgreen.svg" alt="Tests" />
-    <a href="https://codecov.io/gh/Trusera/ai-bom"><img src="https://codecov.io/gh/Trusera/ai-bom/graph/badge.svg" alt="Coverage" /></a>
-    <img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" />
-  </p>
-  <h2 align="center">🎬 Demo</h2>
+  <a href="https://pypi.org/project/ai-bom/"><img src="https://img.shields.io/pypi/v/ai-bom.svg" alt="PyPI" /></a>&nbsp;
+  <a href="https://pypi.org/project/ai-bom/"><img src="https://img.shields.io/pypi/dm/ai-bom.svg" alt="Downloads" /></a>&nbsp;
+  <a href="https://github.com/Trusera/ai-bom/stargazers"><img src="https://img.shields.io/github/stars/Trusera/ai-bom?style=social" alt="GitHub Stars" /></a>&nbsp;
+  <img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" />
 
-  <p align="center">
-    <img src="assets/demo.gif" alt="ai-bom demo" width="900"/>
-  </p>
+  <br /><br />
 
-  <p>
-    <a href="#quick-start">Quick Start</a> &nbsp;|&nbsp;
-    <a href="#agent-sdks">Agent SDKs</a> &nbsp;|&nbsp;
-    <a href="#standalone-vs-platform">Standalone vs Platform</a> &nbsp;|&nbsp;
-    <a href="#n8n-community-node">n8n Node</a> &nbsp;|&nbsp;
-    <a href="#what-it-finds">What It Finds</a> &nbsp;|&nbsp;
-    <a href="#comparison">Comparison</a> &nbsp;|&nbsp;
-    <a href="#architecture">Architecture</a> &nbsp;|&nbsp;
-    <a href="#output-formats">Output Formats</a> &nbsp;|&nbsp;
-    <a href="#cicd-integration">CI/CD</a> &nbsp;|&nbsp;
-    <a href="#cedar-policy-gate">Cedar Policy</a> &nbsp;|&nbsp;
-    <a href="#vs-code-extension">VS Code</a> &nbsp;|&nbsp;
-    <a href="#scan-levels">Scan Levels</a> &nbsp;|&nbsp;
-    <a href="#dashboard">Dashboard</a>
-  </p>
-
-  <br />
-  <img src="https://raw.githubusercontent.com/Trusera/ai-bom/main/assets/n8n-demo.gif" alt="AI-BOM n8n Community Node Demo" width="720" />
-  <br />
-  <sub>Scan all your n8n AI workflows for security risks — directly inside n8n</sub>
+  <a href="#quick-start">Quick Start</a>&ensp;&middot;&ensp;
+  <a href="#what-it-finds">What It Finds</a>&ensp;&middot;&ensp;
+  <a href="#agent-sdks">SDKs</a>&ensp;&middot;&ensp;
+  <a href="#n8n-community-node">n8n Node</a>&ensp;&middot;&ensp;
+  <a href="#cicd-integration">CI/CD</a>&ensp;&middot;&ensp;
+  <a href="#comparison">Compare</a>&ensp;&middot;&ensp;
+  <a href="#architecture">Docs</a>
 </div>
+
+<br />
+
+<p align="center">
+  <img src="assets/demo.gif" alt="ai-bom CLI demo" width="800"/>
+</p>
 
 ---
 
 ## Why AI-BOM?
 
-- **EU AI Act (Article 53, Aug 2025)** requires a complete AI component inventory. No existing SBOM tool covers AI.
-- **60%+ of AI usage is undocumented** — shadow AI is the new shadow IT. Developers ship LLM integrations, agent frameworks, and MCP servers without security review.
-- **First tool to scan n8n workflows for AI** — n8n is the backbone of enterprise AI automation, but completely invisible to Trivy, Syft, and Grype.
+**EU AI Act (Article 53, Aug 2025)** requires a complete AI component inventory — no existing SBOM tool covers AI.
 
-One command. 13 scanners. 9 output formats. Standards-compliant AI Bill of Materials.
+**60%+ of AI usage is undocumented.** Developers ship LLM integrations, agent frameworks, and MCP servers without security review. Shadow AI is the new shadow IT.
+
+> One command. 13 scanners. 9 output formats. Standards-compliant AI Bill of Materials.
 
 ## Quick Start
 
@@ -118,6 +97,31 @@ The image is published to `ghcr.io/trusera/ai-bom` on every tagged release.
 
 </details>
 
+---
+
+## What It Finds
+
+| Category | Examples | Scanner |
+|----------|----------|---------|
+| LLM Providers | OpenAI, Anthropic, Google AI, Mistral, Cohere, Ollama, DeepSeek | Code |
+| Agent Frameworks | LangChain, CrewAI, AutoGen, LlamaIndex, LangGraph | Code |
+| Model References | gpt-4o, claude-3-5-sonnet, gemini-1.5-pro, llama-3 | Code |
+| API Keys | OpenAI (sk-\*), Anthropic (sk-ant-\*), HuggingFace (hf\_\*) | Code, Network |
+| AI Containers | Ollama, vLLM, HuggingFace TGI, NVIDIA Triton, ChromaDB | Docker |
+| Cloud AI | AWS Bedrock/SageMaker \| Azure OpenAI/ML \| Google Vertex AI | Cloud |
+| AI Endpoints | api.openai.com, api.anthropic.com, localhost:11434 | Network |
+| n8n AI Nodes | AI Agents, LLM Chat, MCP Client, Tools, Embeddings | n8n |
+| MCP Servers | Model Context Protocol server configurations | Code, MCP Config |
+| A2A Protocol | Google Agent-to-Agent protocol | Code |
+| CrewAI Flows | @crew, @agent, @task, @flow decorators | Code, AST |
+| Jupyter Notebooks | AI imports and model usage in .ipynb files | Jupyter |
+| GitHub Actions | AI-related actions and model deployments | GitHub Actions |
+| Model Files | .gguf, .safetensors, .onnx, .pt binary model files | Model File |
+
+**25+ AI SDKs detected** across Python, JavaScript, TypeScript, Java, Go, Rust, and Ruby.
+
+---
+
 ## Agent SDKs
 
 Runtime monitoring SDKs for AI agents — intercept HTTP calls, evaluate Cedar policies, and track events in real time.
@@ -128,16 +132,22 @@ Runtime monitoring SDKs for AI agents — intercept HTTP calls, evaluate Cedar p
 | **TypeScript** | [`trusera-sdk`](https://www.npmjs.com/package/trusera-sdk) | `npm install trusera-sdk` |
 | **Go** | [`trusera-sdk-go`](trusera-sdk-go/) | `go get github.com/Trusera/ai-bom/trusera-sdk-go` |
 
+<details>
+<summary><strong>Python example</strong></summary>
+
 ```python
-# Python — 3 lines to monitor any agent
 from trusera_sdk import TruseraClient
 
 client = TruseraClient(api_key="tsk_...", agent_id="my-agent")
 client.track_event("llm_call", {"model": "gpt-4o", "tokens": 150})
 ```
 
+</details>
+
+<details>
+<summary><strong>TypeScript example</strong></summary>
+
 ```typescript
-// TypeScript — transparent HTTP interception
 import { TruseraClient, TruseraInterceptor } from "trusera-sdk";
 
 const client = new TruseraClient({ apiKey: "tsk_..." });
@@ -146,38 +156,12 @@ interceptor.install(client, { enforcement: "warn" });
 // All fetch() calls are now monitored
 ```
 
-### Standalone Mode (No API Key Required)
+</details>
 
-All SDKs work **without** a Trusera account — local Cedar policy enforcement + JSONL event logging:
-
-```python
-# Python — standalone, zero platform dependency
-from trusera_sdk import StandaloneInterceptor
-
-with StandaloneInterceptor(
-    policy_file=".cedar/ai-policy.cedar",
-    enforcement="block",
-    log_file="agent-events.jsonl",
-):
-    # All HTTP calls are now policy-checked and logged locally
-    agent.run()
-```
-
-```typescript
-// TypeScript — standalone mode
-import { StandaloneInterceptor } from "trusera-sdk";
-
-const interceptor = new StandaloneInterceptor({
-  policyFile: ".cedar/ai-policy.cedar",
-  enforcement: "block",
-  logFile: "agent-events.jsonl",
-});
-interceptor.install();
-// All fetch() calls are now policy-checked and logged locally
-```
+<details>
+<summary><strong>Go example</strong></summary>
 
 ```go
-// Go — standalone mode
 interceptor, _ := trusera.NewStandaloneInterceptor(
     trusera.WithPolicyFile("policy.cedar"),
     trusera.WithEnforcement(trusera.EnforcementBlock),
@@ -187,16 +171,32 @@ defer interceptor.Close()
 httpClient := interceptor.WrapClient(http.DefaultClient)
 ```
 
+</details>
+
+### Standalone Mode (No API Key Required)
+
+All SDKs work **without** a Trusera account — local Cedar policy enforcement + JSONL event logging:
+
+```python
+from trusera_sdk import StandaloneInterceptor
+
+with StandaloneInterceptor(
+    policy_file=".cedar/ai-policy.cedar",
+    enforcement="block",
+    log_file="agent-events.jsonl",
+):
+    agent.run()  # All HTTP calls are now policy-checked locally
+```
+
 ### Standalone vs Platform
 
-| Feature | Standalone (free, open source) | Platform (paid) |
-|---------|-------------------------------|-----------------|
+| Feature | Standalone (free) | Platform |
+|---------|:-----------------:|:--------:|
 | Scan codebases for AI components | Yes | Yes |
 | Cedar policy gates in CI/CD | Yes | Yes |
 | VS Code extension | Yes | Yes |
 | n8n workflow scanning | Yes | Yes |
 | Runtime HTTP interception | Yes | Yes |
-| Local policy enforcement | Yes | Yes |
 | Local JSONL event logging | Yes | Yes |
 | Centralized dashboard | — | Yes |
 | Team collaboration & RBAC | — | Yes |
@@ -209,9 +209,17 @@ httpClient := interceptor.WrapClient(http.DefaultClient)
 
 See [docs/interceptor-sdks.md](docs/interceptor-sdks.md) for the full guide.
 
+---
+
 ## n8n Community Node
 
 Scan all your n8n workflows for AI security risks — directly inside n8n. One node, full dashboard.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Trusera/ai-bom/main/assets/n8n-demo.gif" alt="AI-BOM n8n Community Node Demo" width="720" />
+  <br />
+  <sub>Scan all your n8n AI workflows for security risks — directly inside n8n</sub>
+</p>
 
 **Install:** Settings > Community Nodes > `n8n-nodes-trusera`
 
@@ -244,33 +252,12 @@ That's it. The node fetches all workflows, scans them, and serves an interactive
 - Light/dark theme toggle
 - Optional password protection (AES-256-GCM encrypted, client-side decryption)
 
-## What It Finds
-
-| Category | Examples | Scanner |
-|----------|----------|---------|
-| LLM Providers | OpenAI, Anthropic, Google AI, Mistral, Cohere, Ollama, DeepSeek | Code |
-| Agent Frameworks | LangChain, CrewAI, AutoGen, LlamaIndex, LangGraph | Code |
-| Model References | gpt-4o, claude-3-5-sonnet, gemini-1.5-pro, llama-3 | Code |
-| API Keys | OpenAI (sk-\*), Anthropic (sk-ant-\*), HuggingFace (hf\_\*) | Code, Network |
-| AI Containers | Ollama, vLLM, HuggingFace TGI, NVIDIA Triton, ChromaDB | Docker |
-| Cloud AI | AWS Bedrock/SageMaker \| Azure OpenAI/ML \| Google Vertex AI | Cloud |
-| AI Endpoints | api.openai.com, api.anthropic.com, localhost:11434 | Network |
-| n8n AI Nodes | AI Agents, LLM Chat, MCP Client, Tools, Embeddings | n8n |
-| MCP Servers | Model Context Protocol server configurations | Code, MCP Config |
-| A2A Protocol | Google Agent-to-Agent protocol | Code |
-| CrewAI Flows | @crew, @agent, @task, @flow decorators | Code, AST |
-| Jupyter Notebooks | AI imports and model usage in .ipynb files | Jupyter |
-| GitHub Actions | AI-related actions and model deployments | GitHub Actions |
-| Model Files | .gguf, .safetensors, .onnx, .pt binary model files | Model File |
-
-**25+ AI SDKs detected** across Python, JavaScript, TypeScript, Java, Go, Rust, and Ruby.
+---
 
 ## Comparison
 
-How does ai-bom compare to existing supply chain security tools?
-
 | Feature | ai-bom | Trivy | Syft | Grype |
-|---------|--------|-------|------|-------|
+|---------|:------:|:-----:|:----:|:-----:|
 | AI/LLM SDK detection | **Yes** | No | No | No |
 | AI model references | **Yes** | No | No | No |
 | Agent framework detection | **Yes** | No | No | No |
@@ -286,6 +273,8 @@ How does ai-bom compare to existing supply chain security tools?
 | OS package scanning | No | Yes | Yes | Yes |
 
 > **ai-bom doesn't replace Trivy or Syft — it fills the AI-shaped gap they leave behind.**
+
+---
 
 ## Architecture
 
@@ -324,26 +313,23 @@ graph LR
 - Risk scoring is a pure stateless function
 - Parallel scanner execution via thread pool
 
+---
+
 ## Output Formats
 
-### Table (default)
-
-```bash
-ai-bom scan .
-```
-
-Rich terminal output with color-coded severity, risk scores, and component grouping.
-
-### CycloneDX 1.6
-
-```bash
-ai-bom scan . -f cyclonedx -o ai-bom.cdx.json
-```
-
-Industry-standard SBOM format. Compatible with OWASP Dependency-Track. Includes Trusera AI risk properties.
+| Format | Flag | Use case |
+|--------|------|----------|
+| Table (default) | — | Rich terminal output with color-coded severity |
+| CycloneDX 1.6 | `-f cyclonedx` | Industry-standard SBOM, OWASP Dependency-Track compatible |
+| SARIF 2.1.0 | `-f sarif` | GitHub Code Scanning inline annotations |
+| HTML | `-f html` | Shareable dashboard — no server required |
+| Markdown | `-f markdown` | PR comments, documentation |
+| SPDX 3.0 | `-f spdx3` | SPDX-compatible with AI extensions |
+| CSV | `-f csv` | Spreadsheet analysis |
+| JUnit | `-f junit` | CI/CD test reporting |
 
 <details>
-<summary>Example output snippet</summary>
+<summary>CycloneDX output example</summary>
 
 ```json
 {
@@ -365,30 +351,11 @@ Industry-standard SBOM format. Compatible with OWASP Dependency-Track. Includes 
 
 </details>
 
-### SARIF 2.1.0
-
-```bash
-ai-bom scan . -f sarif -o results.sarif
-```
-
-Upload to GitHub Code Scanning for inline annotations on AI components.
-
-### Other formats
-
-| Format | Flag | Use case |
-|--------|------|----------|
-| HTML | `-f html` | Shareable dashboard — no server required |
-| Markdown | `-f markdown` | PR comments, documentation |
-| SPDX 3.0 | `-f spdx3` | SPDX-compatible with AI extensions |
-| CSV | `-f csv` | Spreadsheet analysis |
-| JUnit | `-f junit` | CI/CD test reporting |
-| JSON | `-f json` | Alias for CycloneDX |
+---
 
 ## CI/CD Integration
 
 ### GitHub Actions (recommended)
-
-Use the official AI-BOM GitHub Action for one-line CI/CD integration:
 
 ```yaml
 name: AI-BOM Scan
@@ -414,7 +381,7 @@ jobs:
 
 The action handles Python setup, ai-bom installation, and automatic SARIF upload to GitHub Code Scanning.
 
-See [`.github/workflows/ai-bom-example.yml`](.github/workflows/ai-bom-example.yml) for more examples (CycloneDX SBOM, policy gates, artifact uploads).
+See [`.github/workflows/ai-bom-example.yml`](.github/workflows/ai-bom-example.yml) for more examples.
 
 <details>
 <summary>Manual setup (without the action)</summary>
@@ -444,7 +411,8 @@ jobs:
 
 </details>
 
-### GitLab CI
+<details>
+<summary>GitLab CI</summary>
 
 ```yaml
 include:
@@ -457,7 +425,9 @@ variables:
 
 See [templates/gitlab-ci-ai-bom.yml](templates/gitlab-ci-ai-bom.yml) for the full template.
 
-### Policy enforcement
+</details>
+
+### Policy Enforcement
 
 ```bash
 # Fail CI if any critical findings
@@ -466,9 +436,12 @@ ai-bom scan . --fail-on critical --quiet
 # Use a YAML policy file for fine-grained control
 ai-bom scan . --policy .ai-bom-policy.yml --quiet
 
-# Cedar policy gate (see Cedar Policy Gate section)
+# Cedar policy gate
 python3 scripts/cedar-gate.py scan-results.json .cedar/ai-policy.cedar
 ```
+
+<details>
+<summary>Policy file example</summary>
 
 ```yaml
 # .ai-bom-policy.yml
@@ -481,17 +454,19 @@ block_flags:
   - hardcoded_credentials
 ```
 
+</details>
+
+---
+
 ## Scan Levels
 
-ai-bom's detection depth depends on the access available at scan time:
-
-| Level | Access Required | What It Finds | Scanner |
-|-------|----------------|---------------|---------|
-| **L1 — File System** | Read-only file access | Source code imports, configs, IaC, n8n JSON, notebooks | Code, Cloud, n8n, Jupyter, MCP Config |
-| **L2 — Docker** | + Docker socket | Running AI containers, GPU allocations | Docker |
-| **L3 — Network** | + Env files | API endpoints, hardcoded keys, .env secrets | Network |
-| **L4 — Cloud IaC** | + Terraform/CFN files | 60+ AWS/Azure/GCP AI resource types | Cloud |
-| **L5 — Live Cloud** | + Cloud credentials | Managed AI services via cloud APIs | AWS/GCP/Azure Live |
+| Level | Access | What It Finds |
+|-------|--------|---------------|
+| **L1 — File System** | Read-only file access | Source code imports, configs, IaC, n8n JSON, notebooks |
+| **L2 — Docker** | + Docker socket | Running AI containers, GPU allocations |
+| **L3 — Network** | + Env files | API endpoints, hardcoded keys, .env secrets |
+| **L4 — Cloud IaC** | + Terraform/CFN files | 60+ AWS/Azure/GCP AI resource types |
+| **L5 — Live Cloud** | + Cloud credentials | Managed AI services via cloud APIs |
 
 ```bash
 # L1 (default) — works out of the box
@@ -500,49 +475,19 @@ ai-bom scan .
 # L5 — live cloud scanning
 pip install ai-bom[aws]
 ai-bom scan-cloud aws
-```
 
-### Deep scanning (AST mode)
-
-```bash
+# Deep scanning (AST mode) — Python decorators, function calls, string literals
 ai-bom scan . --deep
 ```
 
-Enables Python AST analysis for decorator patterns (`@agent`, `@tool`, `@crew`, `@flow`), function calls to AI APIs, and string literals containing model names.
+---
 
-## Dashboard
+## More
 
-```bash
-pip install ai-bom[dashboard]
+<details>
+<summary><strong>Cedar Policy Gate</strong></summary>
 
-ai-bom scan . --save-dashboard   # Save scan results
-ai-bom dashboard                  # Launch at http://127.0.0.1:8000
-```
-
-The web dashboard provides:
-- Scan history with timestamps, targets, and component counts
-- Drill-down into individual scans with sortable component tables
-- Severity distribution charts and risk score visualizations
-- Side-by-side scan comparison (diff view)
-
-### n8n workflow scanning
-
-```bash
-# Scan workflow JSON files
-ai-bom scan ./workflows/
-
-# Scan local n8n installation
-ai-bom scan . --n8n-local
-
-# Scan running n8n instance via API
-ai-bom scan . --n8n-url http://localhost:5678 --n8n-api-key YOUR_KEY
-```
-
-Detects AI Agent nodes, MCP client connections, webhook triggers without auth, dangerous tool combinations, and hardcoded credentials in workflow JSON.
-
-## Cedar Policy Gate
-
-Enforce fine-grained security rules on discovered AI components using Cedar-like policies. Fails the CI pipeline if any component violates a rule.
+Enforce fine-grained security rules on discovered AI components using Cedar-like policies.
 
 ```cedar
 // .cedar/ai-policy.cedar
@@ -565,7 +510,10 @@ permit (principal, action, resource);
 
 Also available as a [GitLab CI template](templates/gitlab-ci-ai-bom.yml). See [docs/ci-integration.md](docs/ci-integration.md) for details.
 
-## VS Code Extension
+</details>
+
+<details>
+<summary><strong>VS Code Extension</strong></summary>
 
 Scan your workspace for AI components directly from VS Code. Inline diagnostics, severity decorations, and a results tree view.
 
@@ -574,6 +522,45 @@ ext install trusera.ai-bom-scanner
 ```
 
 The extension runs `ai-bom scan` on your workspace and displays findings as VS Code diagnostics with severity-based gutter decorations.
+
+</details>
+
+<details>
+<summary><strong>Dashboard</strong></summary>
+
+```bash
+pip install ai-bom[dashboard]
+ai-bom scan . --save-dashboard
+ai-bom dashboard  # http://127.0.0.1:8000
+```
+
+The web dashboard provides:
+- Scan history with timestamps, targets, and component counts
+- Drill-down into individual scans with sortable component tables
+- Severity distribution charts and risk score visualizations
+- Side-by-side scan comparison (diff view)
+
+</details>
+
+<details>
+<summary><strong>n8n Workflow Scanning</strong></summary>
+
+```bash
+# Scan workflow JSON files
+ai-bom scan ./workflows/
+
+# Scan local n8n installation
+ai-bom scan . --n8n-local
+
+# Scan running n8n instance via API
+ai-bom scan . --n8n-url http://localhost:5678 --n8n-api-key YOUR_KEY
+```
+
+Detects AI Agent nodes, MCP client connections, webhook triggers without auth, dangerous tool combinations, and hardcoded credentials in workflow JSON.
+
+</details>
+
+---
 
 ## Contributing
 
@@ -585,25 +572,38 @@ pip install -e ".[dev]"
 pytest tests/ -v
 ```
 
-Quality gates enforced:
-- **ruff** (E,F,I,W,S,B,C4,UP,SIM,N,RUF) — zero lint errors
-- **mypy** strict (`disallow_untyped_defs = true`) — zero type errors
-- **pytest** — 651 tests, 80%+ coverage required
+Quality gates: **ruff** (zero lint errors) · **mypy** strict (zero type errors) · **pytest** (651 tests, 80%+ coverage)
+
+<a href="https://github.com/Trusera/ai-bom/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22"><img src="https://img.shields.io/badge/good%20first%20issues-welcome-orange.svg" alt="Good First Issues" /></a>
 
 ## License
 
-Apache License 2.0 — see [LICENSE](LICENSE) for details.
-
----
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Trusera/ai-bom&type=Date)](https://star-history.com/#Trusera/ai-bom&Date)
+Apache License 2.0 — see [LICENSE](LICENSE).
 
 ---
 
 <div align="center">
-  <strong>Built by <a href="https://trusera.dev">Trusera</a></strong> — Securing the Agentic Service Mesh
-  <br />
-  <sub>ai-bom is the open-source foundation of the Trusera platform for AI agent security.</sub>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Trusera/ai-bom&type=Date)](https://star-history.com/#Trusera/ai-bom&Date)
+
+<br />
+
+<img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+" />&nbsp;
+<img src="https://img.shields.io/badge/CycloneDX-1.6-green.svg" alt="CycloneDX 1.6" />&nbsp;
+<img src="https://img.shields.io/badge/tests-651%20passing-brightgreen.svg" alt="Tests" />&nbsp;
+<a href="https://codecov.io/gh/Trusera/ai-bom"><img src="https://codecov.io/gh/Trusera/ai-bom/graph/badge.svg" alt="Coverage" /></a>&nbsp;
+<img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" />
+
+<br /><br />
+
+<strong>Built by <a href="https://trusera.dev">Trusera</a></strong> — Securing the Agentic Service Mesh
+<br />
+<sub>ai-bom is the open-source foundation of the Trusera platform for AI agent security.</sub>
+
+<br /><br />
+
+<a href="https://www.npmjs.com/package/n8n-nodes-trusera"><img src="https://img.shields.io/npm/v/n8n-nodes-trusera.svg?label=n8n%20node" alt="n8n node" /></a>&nbsp;
+<a href="https://pypi.org/project/trusera-sdk/"><img src="https://img.shields.io/pypi/v/trusera-sdk.svg?label=python%20sdk" alt="Python SDK" /></a>&nbsp;
+<a href="https://www.npmjs.com/package/trusera-sdk"><img src="https://img.shields.io/npm/v/trusera-sdk.svg?label=ts%20sdk" alt="TypeScript SDK" /></a>
+
 </div>
