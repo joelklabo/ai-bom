@@ -10,8 +10,36 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from ai_bom.models import ScanResult
+from ai_bom.models import ComponentType, ScanResult
 from ai_bom.reporters.base import BaseReporter
+
+
+def _get_component_type_color(component_type: ComponentType) -> str:
+    """Get color for a component type.
+
+    Args:
+        component_type: The component type enum value
+
+    Returns:
+        Rich color string
+    """
+    color_map = {
+        # Models/LLMs: Blue
+        ComponentType.model: "blue",
+        ComponentType.llm_provider: "bright_blue",
+        # Agents: Green
+        ComponentType.agent_framework: "green",
+        ComponentType.mcp_client: "bright_green",
+        ComponentType.workflow: "green",
+        # Tools: Yellow
+        ComponentType.tool: "yellow",
+        ComponentType.mcp_server: "bright_yellow",
+        # Endpoints: Cyan
+        ComponentType.endpoint: "cyan",
+        # Containers: Magenta
+        ComponentType.container: "magenta",
+    }
+    return color_map.get(component_type, "white")
 
 
 class CLIReporter(BaseReporter):
@@ -40,8 +68,14 @@ class CLIReporter(BaseReporter):
             "",
             "By Type:",
         ]
+        # Color code type counts
         for type_name, count in sorted(summary.by_type.items()):
-            summary_lines.append(f"  {type_name}: {count}")
+            try:
+                comp_type = ComponentType(type_name)
+                color = _get_component_type_color(comp_type)
+                summary_lines.append(f"  [{color}]{type_name}: {count}[/{color}]")
+            except ValueError:
+                summary_lines.append(f"  {type_name}: {count}")
 
         summary_lines.append("")
         summary_lines.append("By Severity:")
@@ -106,6 +140,14 @@ class CLIReporter(BaseReporter):
                 else:
                     risk_style = "green"
 
+                # Color code component name based on type
+                type_color = _get_component_type_color(comp.type)
+
+                # Highlight API keys/credentials with red
+                comp_name_style = type_color
+                if any(flag in comp.flags for flag in ["hardcoded_api_key", "hardcoded_credentials", "api_key_detected"]):
+                    comp_name_style = "bold red"
+
                 location = comp.location.file_path
                 if comp.location.line_number:
                     location += f":{comp.location.line_number}"
@@ -113,12 +155,15 @@ class CLIReporter(BaseReporter):
                 if len(location) > 35:
                     location = "..." + location[-32:]
 
+                # Color code type column
+                type_text = Text(comp.type.value, style=type_color)
+
                 flags_display = ", ".join(comp.flags[:3]) if comp.flags else "-"
 
                 table.add_row(
                     str(i),
-                    comp.name,
-                    comp.type.value,
+                    Text(comp.name, style=comp_name_style),
+                    type_text,
                     comp.provider,
                     location,
                     Text(str(risk_score), style=risk_style),
